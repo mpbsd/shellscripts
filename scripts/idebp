@@ -1,0 +1,174 @@
+#!/usr/bin/env bash
+#
+# author: marcelo barboza <salve.barboza@pm.me>
+# date: 2024-01-11
+
+function PKGADD() {  # {{{
+  PACKAGE="$1"
+  if [ -n "$(dpkg -l | sed -n "/^ii\s\+\<${PACKAGE}\>\s\+/p")" ]
+  then
+    echo "Found: ${PACKAGE}"
+  else
+    echo -n "Package ${PACKAGE} not found. Would you like to install it? (y/N) "
+    read -r ANSWER
+    if [ "${ANSWER}" = 'y' ]
+    then
+      echo 'Proceeding with package installation.'
+      if echo "$PACKAGE" | grep -qF ':amd64'
+      then
+        LIB="${PACKAGE/%:amd64/}"
+        sudo apt install -y "$LIB"
+      else
+        sudo apt install -y "$PACKAGE"
+      fi
+      echo 'Done.'
+    fi
+  fi
+}
+# }}}
+
+declare -a TEXT_EDITORS=(  # {{{
+  vim-nox
+  vim-gtk3
+)  # }}}
+declare -a C_DEVELOPMENT=(  # {{{
+  build-essential
+  gdb
+  glibc-doc
+  universal-ctags
+  valgrind
+)  # }}}
+declare -a CONTAINERS=(  # {{{
+  podman
+)  # }}}
+declare -a PYTHON_DEVELOPMENT=(  # {{{
+  python3-venv
+  python3-pip
+)  # }}}
+declare -a DATABASE=(  # {{{
+  mariadb-client
+  mariadb-server
+  postgresql
+  postgresql-client
+  sqlite3
+  sqlite3-doc
+)  # }}}
+declare -a MAIL_CHAT_AND_NEWS=(  # {{{
+  abook
+  mutt
+  w3m
+  newsboat
+  irssi
+)  # }}}
+declare -a SYSTEM_MAINTENANCE=(  # {{{
+  aptitude
+  deborphan
+  debsums
+  stow
+)  # }}}
+declare -a FUN_AND_GAMES=(  # {{{
+  bsdgames
+  cowsay
+  fortunes
+  stockfish
+)  # }}}
+declare -a FIRMWARE=(  # {{{
+  firmware-realtek
+)  # }}}
+declare -a SECURITY=(  # {{{
+  keychain
+  pass
+  pass-otp
+  signify-openbsd
+  signify-openbsd-keys
+)  # }}}
+declare -a BLOGGING=(  # {{{
+  hugo
+  lowdown
+)  # }}}
+declare -a CORE_UTILS=(  # {{{
+  9base
+  bat
+  curl
+  fd-find
+  fzf
+  groff
+  gtypist
+  hub
+  ledger
+  lf
+  ncdu
+  nmap
+  plocate
+  qpdf
+  redshift
+  ripgrep
+  sc
+  scrot
+  sdcv
+  silversearcher-ag
+  thefuck
+  tmux
+  zathura
+  zathura-djvu
+)  # }}}
+declare -a SHELL=(  # {{{
+  zsh
+  zsh-autosuggestions
+  zsh-doc
+  zsh-syntax-highlighting
+  shellcheck
+)  # }}}
+declare -a LATEX=(  # {{{
+  texlive-full
+)  # }}}
+declare -a IMAGE=(  # {{{
+  gimp
+  inkscape
+)  # }}}
+declare -a BROWSER=(  # {{{
+  chromium
+  chromium-driver
+)  # }}}
+declare -a SUCKLESS_SOFTWARE=(  # {{{
+  dwm
+  suckless-tools
+  stterm
+  surf
+  libx11-dev:amd64
+  libxft-dev:amd64
+  libxinerama-dev:amd64
+  libfreetype6-dev:amd64
+  libharfbuzz-dev:amd64
+)  # }}}
+declare -a ZSA_WALLY=(  # {{{
+  libusb-1.0-0-dev:amd64
+)  # }}}
+
+PKGS=(  # {{{
+  "${TEXT_EDITORS[@]}"
+  "${C_DEVELOPMENT[@]}"
+  "${CONTAINERS[@]}"
+  "${PYTHON_DEVELOPMENT[@]}"
+  "${DATABASE[@]}"
+  "${MAIL_CHAT_AND_NEWS[@]}"
+  "${SYSTEM_MAINTENANCE[@]}"
+  "${FUN_AND_GAMES[@]}"
+  "${FIRMWARE[@]}"
+  "${SECURITY[@]}"
+  "${BLOGGING[@]}"
+  "${CORE_UTILS[@]}"
+  "${SHELL[@]}"
+  "${LATEX[@]}"
+  "${IMAGE[@]}"
+  "${BROWSER[@]}"
+  "${SUCKLESS_SOFTWARE[@]}"
+  "${ZSA_WALLY[@]}"
+)  # }}}
+
+for PKG in "${PKGS[@]}"
+do
+  PKGADD "$PKG"
+done
+
+exit 0

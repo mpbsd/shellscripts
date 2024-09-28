@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+ROOT="${HOME}/.local/share/references"
+FILE="${ROOT}/main.bib"
+
+[ -d "$ROOT" ] || exit 10
+[ -f "$FILE" ] || exit 11
+
+KEY="$(sed -n '/^@/p' "$FILE" | sed 's/\(^@[^{]\+{\|,$\)//g' | dmenu -i)"
+echo -n "$KEY" | xclip -selection clipboard
+
+exit 0

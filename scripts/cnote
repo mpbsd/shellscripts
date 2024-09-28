@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+ROOT="${HOME}/templates/latex/class-notes"
+JSON="${ROOT}/tex/index.json"
+LTEX="${ROOT}/tex/index.tex"
+
+[ $# -eq 1   ] || exit 10
+[ -d "$ROOT" ] || exit 11
+[ -f "$JSON" ] || exit 12
+
+function TGTDIR() {  # {{{
+  CRSE=$(jq -r 'keys[] as $k | "\($k): \(.[$k].code), \(.[$k].discipline), T\(.[$k].class), \(.[$k].workload)"' < "$JSON" | fzf)
+  CODE=$(echo "$CRSE" | cut -d ':' -f 1)
+  DEST="${ROOT}/tex/${CODE}"
+}  # }}}
+
+function CREATE() {  # {{{
+  [ -d "$DEST" ] || mkdir -p "$DEST"
+  if find "$DEST" -type f -name '*.tex' 
+  then
+    M=$(find "$DEST" -type f -name '*.tex' | sort | tail -1 | sed "s@${DEST}/\([0-9]\{3\}\)\.tex@\1@g" | sed 's/\<0\+//')
+  else
+    M=0
+  fi
+  N=$(printf '%03d' "$((M+1))")
+  TGT_JSON_FILE="${DEST}/${N}.json"
+  TGT_TEX_FILE="${DEST}/${N}.tex"
+  vim -O "$TGT_JSON_FILE" "$TGT_TEX_FILE"
+  find "$DEST" -type f -name '*.tex' | sort | tail -2 | sed "s@${DEST}/\([0-9]\{3\}\)\.tex@\\\\input{tex/${CODE}/\1}@" > "$LTEX"
+}  # }}}
+
+function EDIT() {  # {{{
+  [ -d "$DEST" ] || exit 13
+  [ -n "$(find "$DEST" -type f -name '*.tex')" ] || exit 14
+  vim -c "cd ${DEST} | Ag"
+}   # }}}
+
+function HELP() {  # {{{
+  # dependencies
+  # jq
+  # fzf
+  # Ag
+  # tr
+  # find
+  # sort
+  # sed
+  # tail
+
+  # exit codes
+  # 10: incorrect number of arguments
+  # 11: root dir does not exist
+  # 12: json file does not exist
+  # 13: target dir does not exist
+  # 14: there are no files to edit
+  echo "Help Message"
+}  # }}}
+
+case "$1" in
+  -c|--create)
+    TGTDIR
+    CREATE
+    ;;
+  -e|--edit)
+    TGTDIR
+    EDIT
+    ;;
+  -h|--help)
+    HELP
+    ;;
+esac
+
+exit 0
