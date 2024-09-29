@@ -1,31 +1,52 @@
 #!/usr/bin/env bash
 #
-# author: marcelo barboza <salve.barboza@pm.me>
+# author: Marcelo Barboza <salve.barboza@pm.me>
 # date: 2024-01-11
 
-function PKGADD() {  # {{{
-  PACKAGE="$1"
-  if [ -n "$(dpkg -l | sed -n "/^ii\s\+\<${PACKAGE}\>\s\+/p")" ]
+function NEWDEB() {  # {{{
+  PKG="$1"
+  if [ -n "$(dpkg -l | sed -n "/^ii\s\+\<${PKG}\>\s\+/p")" ]
   then
-    echo "Found: ${PACKAGE}"
+    echo "Found: ${PKG}"
   else
-    echo -n "Package ${PACKAGE} not found. Would you like to install it? (y/N) "
+    echo "Installing package: ${PKG}"
+    if echo "$PKG" | grep -qF ':amd64'
+    then
+      LIB="${PKG/%:amd64/}"
+      sudo apt install -y "$LIB"
+    else
+      sudo apt install -y "$PKG"
+    fi
+    echo 'Done.'
+  fi
+}  # }}}
+
+function PKGADD() {  # {{{
+  PKG="$1"
+  if [ -n "$(dpkg -l | sed -n "/^ii\s\+\<${PKG}\>\s\+/p")" ]
+  then
+    echo "Found: ${PKG}"
+  else
+    echo -n "Package ${PKG} not found. Would you like to install it? (y/N) "
     read -r ANSWER
     if [ "${ANSWER}" = 'y' ]
     then
       echo 'Proceeding with package installation.'
-      if echo "$PACKAGE" | grep -qF ':amd64'
+      if echo "$PKG" | grep -qF ':amd64'
       then
-        LIB="${PACKAGE/%:amd64/}"
+        LIB="${PKG/%:amd64/}"
         sudo apt install -y "$LIB"
       else
-        sudo apt install -y "$PACKAGE"
+        sudo apt install -y "$PKG"
       fi
       echo 'Done.'
     fi
   fi
-}
-# }}}
+}  # }}}
+
+function HELP() {  # {{{
+  echo "Don't panic!"
+}  # }}}
 
 declare -a TEXT_EDITORS=(  # {{{
   vim-nox
@@ -167,9 +188,28 @@ PKGS=(  # {{{
   "${ZSA_WALLY[@]}"
 )  # }}}
 
-for PKG in "${PKGS[@]}"
-do
-  PKGADD "$PKG"
-done
+if [ "$#" -eq 1 ]
+then
+  case "$1" in
+    -n | --prepare-new-system)
+      for PKG in "${PKGS[@]}"
+      do
+        NEWDEB "$PKG"
+      done
+      ;;
+    -i | --install-missing-packages)
+      for PKG in "${PKGS[@]}"
+      do
+        PKGADD "$PKG"
+      done
+      ;;
+    *)
+      HELP
+      ;;
+  esac
+else
+  HELP
+fi
 
 exit 0
+
