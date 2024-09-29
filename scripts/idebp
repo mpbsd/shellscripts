@@ -118,6 +118,7 @@ declare -a SHELL=(  # {{{
   zsh-doc
   zsh-syntax-highlighting
   shellcheck
+  shfmt
 )  # }}}
 declare -a LATEX=(  # {{{
   texlive-full

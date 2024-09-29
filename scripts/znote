@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ROOT="${HOME}/.local/share/zettelkasten"
+ROOT="${HOME}/projects/zettelkasten"
 
 [ -d "$ROOT" ] || exit 10
 
