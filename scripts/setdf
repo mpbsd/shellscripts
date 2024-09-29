@@ -10,10 +10,12 @@ function SOURCE() {
   ORIG[git]="$SRC1"
   ORIG[irssi]="$SRC1"
   ORIG[mutt]="$SRC1"
-  ORIG[kanata]="$SRC2"
-  ORIG[systemd]="$SRC2"
+  ORIG[kanata_cfg]="$SRC2"
+  ORIG[kanata_use]="$SRC2"
+  ORIG[lf]="$SRC2"
   ORIG[tmux]="$SRC2"
   ORIG[vim]="$SRC2"
+  ORIG[zathura]="$SRC2"
   ORIG[zsh]="$SRC2"
 
   PKG="$1"
@@ -27,10 +29,12 @@ function TARGET() {
   DEST[git]='.config/git'
   DEST[irssi]='.irssi'
   DEST[mutt]='.mutt'
-  DEST[kanata]='.config/kanata'
-  DEST[systemd]='.config/systemd/user'
+  DEST[kanata_cfg]='.config/kanata'
+  DEST[kanata_use]='.config/systemd/user'
+  DEST[lf]='.config/lf'
   DEST[tmux]='.config/tmux'
   DEST[vim]='.vim'
+  DEST[zathura]='.config/zathura'
   DEST[zsh]='.config/zsh'
 
   PKG="$1"
@@ -62,8 +66,10 @@ function AVAILABLE_DOTFILES() {
   \t- irssi
   \t- mutt
   \t- kanata
+  \t- lf
   \t- tmux
   \t- vim
+  \t- zathura
   \t- zsh\n\n'
 }
 
@@ -90,14 +96,20 @@ if [ "$#" -eq 2 ]; then
           INSTALL mutt
           ;;
         kanata)
-          INSTALL kanata
-          INSTALL systemd
+          INSTALL kanata_cfg
+          INSTALL kanata_use
+          ;;
+        lf)
+          INSTALL lf
           ;;
         tmux)
           INSTALL tmux
           ;;
         vim)
           INSTALL vim
+          ;;
+        zathura)
+          INSTALL zathura
           ;;
         zsh)
           INSTALL zsh
@@ -107,10 +119,12 @@ if [ "$#" -eq 2 ]; then
           INSTALL git
           INSTALL irssi
           INSTALL mutt
-          INSTALL kanata
-          INSTALL systemd
+          INSTALL kanata_cfg
+          INSTALL kanata_use
+          INSTALL lf
           INSTALL tmux
           INSTALL vim
+          INSTALL zathura
           INSTALL zsh
           ;;
         *)
@@ -133,14 +147,20 @@ if [ "$#" -eq 2 ]; then
           UNINSTALL mutt
           ;;
         kanata)
-          UNINSTALL kanata
-          UNINSTALL systemd
+          UNINSTALL kanata_cfg
+          UNINSTALL kanata_use
+          ;;
+        lf)
+          UNINSTALL lf
           ;;
         tmux)
           UNINSTALL tmux
           ;;
         vim)
           UNINSTALL vim
+          ;;
+        zathura)
+          UNINSTALL zathura
           ;;
         zsh)
           UNINSTALL zsh
@@ -150,10 +170,12 @@ if [ "$#" -eq 2 ]; then
           UNINSTALL git
           UNINSTALL irssi
           UNINSTALL mutt
-          UNINSTALL kanata
-          UNINSTALL systemd
+          UNINSTALL kanata_cfg
+          UNINSTALL kanata_use
+          UNINSTALL lf
           UNINSTALL tmux
           UNINSTALL vim
+          UNINSTALL zathura
           UNINSTALL zsh
           ;;
         *)
