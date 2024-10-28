@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+function HELP() {
+  echo 'Help message'
+}
+
+if [ "$#" -eq 1 ]
+then
+  case "$1" in
+    us)
+      setxkbmap -model pc105 -layout us -option shift:both_capslock_cancel
+    ;;
+    br)
+      setxkbmap -model abnt2 -layout br -variant abnt2 -option shift:both_capslock_cancel
+    ;;
+    *)
+      HELP
+    ;;
+  esac
+else
+  HELP
+fi
+
+exit 0
