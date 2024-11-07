@@ -12,7 +12,7 @@ function SOURCE() {
   ORIG[mutt]="$SRC1"
   ORIG[alacritty]="$SRC2"
   ORIG[kanata_cfg]="$SRC2"
-  ORIG[kanata_use]="$SRC2"
+  ORIG[kanata_ctl]="$SRC2"
   ORIG[lf]="$SRC2"
   ORIG[tmux]="$SRC2"
   ORIG[vim]="$SRC2"
@@ -32,7 +32,7 @@ function TARGET() {
   DEST[mutt]='.mutt'
   DEST[alacritty]='.config/alacritty'
   DEST[kanata_cfg]='.config/kanata'
-  DEST[kanata_use]='.config/systemd/user'
+  DEST[kanata_ctl]='.config/systemd/user'
   DEST[lf]='.config/lf'
   DEST[tmux]='.config/tmux'
   DEST[vim]='.vim'
@@ -103,7 +103,7 @@ if [ "$#" -eq 2 ]; then
           ;;
         kanata)
           INSTALL kanata_cfg
-          INSTALL kanata_use
+          INSTALL kanata_ctl
           ;;
         lf)
           INSTALL lf
@@ -127,7 +127,7 @@ if [ "$#" -eq 2 ]; then
           INSTALL mutt
           INSTALL alacritty
           INSTALL kanata_cfg
-          INSTALL kanata_use
+          INSTALL kanata_ctl
           INSTALL lf
           INSTALL tmux
           INSTALL vim
@@ -158,7 +158,7 @@ if [ "$#" -eq 2 ]; then
           ;;
         kanata)
           UNINSTALL kanata_cfg
-          UNINSTALL kanata_use
+          UNINSTALL kanata_ctl
           ;;
         lf)
           UNINSTALL lf
@@ -182,7 +182,7 @@ if [ "$#" -eq 2 ]; then
           UNINSTALL mutt
           UNINSTALL alacritty
           UNINSTALL kanata_cfg
-          UNINSTALL kanata_use
+          UNINSTALL kanata_ctl
           UNINSTALL lf
           UNINSTALL tmux
           UNINSTALL vim
