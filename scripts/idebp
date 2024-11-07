@@ -145,6 +145,7 @@ declare -a LATEX=(  # {{{
   texlive-full
 )  # }}}
 declare -a IMAGE=(  # {{{
+  blender
   gimp
   inkscape
 )  # }}}
@@ -212,4 +213,3 @@ else
 fi
 
 exit 0
-
