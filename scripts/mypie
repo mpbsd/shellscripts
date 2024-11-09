@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+
+VENV="${HOME}/.local/share/python3"
+
+
+# PKGS {{{
+declare -a PKGS=(
+black
+isort
+Jinja2
+beautifulsoup4
+)
+# }}}
+
+
+if [ "$#" -eq 1 ]
+then
+  case "$1" in
+    -i|--install)
+      [ "$(which python3)" = "${VENV}/bin/python3" ] || exit 10
+      pip install --upgrade pip | sed -n '/^Requirement/!p'
+      for PKG in "${PKGS[@]}"
+      do
+        if [ "$(pip show "$PKG" | sed -n '/^Name/p')" = "Name: $PKG" ]
+        then
+          echo "Package $PKG already installed. Upgrading it."
+          pip install --upgrade "$PKG" | sed -n '/^Requirement/!p'
+          echo "Done."
+        else
+          echo "Package $PKG not found. Installing it."
+          pip install "$PKG" | sed -n '/^Requirement/!p'
+          echo "Done."
+        fi
+      done
+      ;;
+    -r|--remove)
+      [ "$(which python3)" = "${VENV}/bin/python3" ] || exit 11
+      [ -d "$VENV" ]                                 || exit 12
+      rm -rf "$VENV"
+      ;;
+    *)
+      echo 'HELP'
+      ;;
+  esac
+else
+  echo 'HELP'
+fi
+
+exit 0
