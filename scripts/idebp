@@ -48,66 +48,89 @@ function HELP() {  # {{{
   echo "Don't panic!"
 }  # }}}
 
-declare -a TEXT_EDITORS=(  # {{{
+# TEXT_EDITORS {{{
+declare -a TEXT_EDITORS=(
   vim-nox
   vim-gtk3
-)  # }}}
-declare -a C_DEVELOPMENT=(  # {{{
+)
+# }}}
+# C_DEVELOPMENT {{{
+declare -a C_DEVELOPMENT=(
   build-essential
   gdb
   glibc-doc
   universal-ctags
   valgrind
-)  # }}}
-declare -a CONTAINERS=(  # {{{
+)
+# }}}
+# CONTAINERS {{{
+declare -a CONTAINERS=(
   podman
-)  # }}}
-declare -a PYTHON_DEVELOPMENT=(  # {{{
+)
+# }}}
+# PYTHON_DEVELOPMENT {{{
+declare -a PYTHON_DEVELOPMENT=(
   python3-venv
   python3-pip
-)  # }}}
-declare -a DATABASE=(  # {{{
+)
+# }}}
+# DATABASE {{{
+declare -a DATABASE=(
   mariadb-client
   mariadb-server
   postgresql
   postgresql-client
   sqlite3
   sqlite3-doc
-)  # }}}
-declare -a MAIL_CHAT_AND_NEWS=(  # {{{
+)
+# }}}
+# MAIL_CHAT_AND_NEWS {{{
+declare -a MAIL_CHAT_AND_NEWS=(
   abook
   mutt
   w3m
   newsboat
   irssi
-)  # }}}
-declare -a SYSTEM_MAINTENANCE=(  # {{{
+)
+# }}}
+# SYSTEM_MAINTENANCE {{{
+declare -a SYSTEM_MAINTENANCE=(
   aptitude
   deborphan
   debsums
   stow
-)  # }}}
-declare -a FUN_AND_GAMES=(  # {{{
+)
+# }}}
+# FUN_AND_GAMES {{{
+declare -a FUN_AND_GAMES=(
   bsdgames
   cowsay
   fortunes
   stockfish
-)  # }}}
-declare -a FIRMWARE=(  # {{{
+)
+# }}}
+# FIRMWARE {{{
+declare -a FIRMWARE=(
   firmware-realtek
-)  # }}}
-declare -a SECURITY=(  # {{{
+)
+# }}}
+# SECURITY {{{
+declare -a SECURITY=(
   keychain
   pass
   pass-otp
   signify-openbsd
   signify-openbsd-keys
-)  # }}}
-declare -a BLOGGING=(  # {{{
+)
+# }}}
+# BLOGGING {{{
+declare -a BLOGGING=(
   hugo
   lowdown
-)  # }}}
-declare -a CORE_UTILS=(  # {{{
+)
+# }}}
+# CORE_UTILS {{{
+declare -a CORE_UTILS=(
   9base
   bat
   curl
@@ -132,28 +155,40 @@ declare -a CORE_UTILS=(  # {{{
   tmux
   zathura
   zathura-djvu
-)  # }}}
-declare -a SHELL=(  # {{{
+)
+# }}}
+# SHELL {{{
+declare -a SHELL=(
+  shellcheck
+  shfmt
+  xonsh
+  xonsh-doc
   zsh
   zsh-autosuggestions
   zsh-doc
   zsh-syntax-highlighting
-  shellcheck
-  shfmt
-)  # }}}
-declare -a LATEX=(  # {{{
+)
+# }}}
+# LATEX {{{
+declare -a LATEX=(
   texlive-full
-)  # }}}
-declare -a IMAGE=(  # {{{
+)
+# }}}
+# IMAGE {{{
+declare -a IMAGE=(
   blender
   gimp
   inkscape
-)  # }}}
-declare -a BROWSER=(  # {{{
+)
+# }}}
+# BROWSER {{{
+declare -a BROWSER=(
   chromium
   chromium-driver
-)  # }}}
-declare -a SUCKLESS_SOFTWARE=(  # {{{
+)
+# }}}
+# SUCKLESS_SOFTWARE {{{
+declare -a SUCKLESS_SOFTWARE=(
   dwm
   suckless-tools
   stterm
@@ -163,10 +198,13 @@ declare -a SUCKLESS_SOFTWARE=(  # {{{
   libxinerama-dev:amd64
   libfreetype6-dev:amd64
   libharfbuzz-dev:amd64
-)  # }}}
-declare -a ZSA_WALLY=(  # {{{
+)
+# }}}
+# ZSA_WALLY {{{
+declare -a ZSA_WALLY=(
   libusb-1.0-0-dev:amd64
-)  # }}}
+)
+# }}}
 
 PKGS=(  # {{{
   "${TEXT_EDITORS[@]}"
@@ -187,7 +225,8 @@ PKGS=(  # {{{
   "${BROWSER[@]}"
   "${SUCKLESS_SOFTWARE[@]}"
   "${ZSA_WALLY[@]}"
-)  # }}}
+)
+# }}}
 
 if [ "$#" -eq 1 ]
 then
