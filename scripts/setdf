@@ -11,6 +11,7 @@ function SOURCE() {
   ORIG[irssi]="$SRC1"
   ORIG[mutt]="$SRC1"
   ORIG[alacritty]="$SRC2"
+  ORIG[containers]="$SRC2"
   ORIG[kanata_cfg]="$SRC2"
   ORIG[kanata_ctl]="$SRC2"
   ORIG[lf]="$SRC2"
@@ -31,6 +32,7 @@ function TARGET() {
   DEST[irssi]='.irssi'
   DEST[mutt]='.mutt'
   DEST[alacritty]='.config/alacritty'
+  DEST[containers]='.config/containers'
   DEST[kanata_cfg]='.config/kanata'
   DEST[kanata_ctl]='.config/systemd/user'
   DEST[lf]='.config/lf'
@@ -65,6 +67,7 @@ function AVAILABLE_DOTFILES() {
   printf 'There are dotfiles currently available for the following programs:\n
   \t- abook
   \t- alacritty
+  \t- containers
   \t- git
   \t- irssi
   \t- mutt
@@ -101,6 +104,9 @@ if [ "$#" -eq 2 ]; then
         alacritty)
           INSTALL alacritty
           ;;
+        containers)
+          INSTALL containers
+          ;;
         kanata)
           INSTALL kanata_cfg
           INSTALL kanata_ctl
@@ -126,6 +132,7 @@ if [ "$#" -eq 2 ]; then
           INSTALL irssi
           INSTALL mutt
           INSTALL alacritty
+          INSTALL containers
           INSTALL kanata_cfg
           INSTALL kanata_ctl
           INSTALL lf
@@ -156,6 +163,9 @@ if [ "$#" -eq 2 ]; then
         alacritty)
           UNINSTALL alacritty
           ;;
+        containers)
+          UNINSTALL containers
+          ;;
         kanata)
           UNINSTALL kanata_cfg
           UNINSTALL kanata_ctl
@@ -181,6 +191,7 @@ if [ "$#" -eq 2 ]; then
           UNINSTALL irssi
           UNINSTALL mutt
           UNINSTALL alacritty
+          UNINSTALL containers
           UNINSTALL kanata_cfg
           UNINSTALL kanata_ctl
           UNINSTALL lf
