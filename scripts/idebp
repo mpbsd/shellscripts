@@ -129,12 +129,13 @@ declare -a BLOGGING=(
   lowdown
 )
 # }}}
-# CORE_UTILS {{{
-declare -a CORE_UTILS=(
+# COREUTILS {{{
+declare -a COREUTILS=(
   9base
   bat
   curl
   fd-find
+  figlet
   fzf
   groff
   gtypist
@@ -159,6 +160,7 @@ declare -a CORE_UTILS=(
 # }}}
 # SHELL {{{
 declare -a SHELL=(
+  dialog
   shellcheck
   shfmt
   xonsh
@@ -218,7 +220,7 @@ PKGS=(  # {{{
   "${FIRMWARE[@]}"
   "${SECURITY[@]}"
   "${BLOGGING[@]}"
-  "${CORE_UTILS[@]}"
+  "${COREUTILS[@]}"
   "${SHELL[@]}"
   "${LATEX[@]}"
   "${IMAGE[@]}"
