@@ -32,10 +32,10 @@ SGN='SHA512SUMS.sign'
 DIR="${HOME}/downloads/debian"
 TGT='/dev/sdb'
 
-[ -d "${DIR}" ]        || mkdir -p "$DIR"
-[ -f "${DIR}/${SUM}" ] || wget "${URL}/${SUM}" -O "${DIR}/${SUM}"
-[ -f "${DIR}/${SGN}" ] || wget "${URL}/${SGN}" -O "${DIR}/${SGN}"
-[ -f "${DIR}/${ISO}" ] || wget "${URL}/${ISO}" -O "${DIR}/${ISO}"
+[[ -d "${DIR}" ]]        || mkdir -p "$DIR"
+[[ -f "${DIR}/${SUM}" ]] || wget "${URL}/${SUM}" -O "${DIR}/${SUM}"
+[[ -f "${DIR}/${SGN}" ]] || wget "${URL}/${SGN}" -O "${DIR}/${SGN}"
+[[ -f "${DIR}/${ISO}" ]] || wget "${URL}/${ISO}" -O "${DIR}/${ISO}"
 
 if [ -z "$(gpg -k | sed -n '/988021A964E6EA7D/p')" ]
 then

@@ -57,15 +57,15 @@ function HELP() {
 }
 
 
-if [ "$#" -eq 1 ]
+if [[ "$#" -eq 1 ]]
 then
   case "$1" in
     -i|--install-packages)
-      [ "$(which python3)" = "${VENV}/bin/python3" ] || exit 10
+      [[ "$(which python3)" = "${VENV}/bin/python3" ]] || exit 10
       pip install --upgrade pip | sed -n '/^Requirement/!p'
       for PKG in "${PKGS[@]}"
       do
-        if [ "$(pip show "$PKG" | sed -n '/^Name/p')" = "Name: $PKG" ]
+        if [[ "$(pip show "$PKG" | sed -n '/^Name/p')" = "Name: $PKG" ]]
         then
           echo "U: $PKG"
           pip install --upgrade "$PKG" | sed -n '/^Requirement/!p'
@@ -76,8 +76,8 @@ then
       done
       ;;
     -r|--remove-venv)
-      [ "$(which python3)" = "${VENV}/bin/python3" ] || exit 11
-      [ -d "$VENV" ]                                 || exit 12
+      [[ "$(which python3)" = "${VENV}/bin/python3" ]] || exit 11
+      [[ -d "$VENV" ]]                                 || exit 12
       rm -rf "$VENV"
       ;;
     *)
