@@ -211,6 +211,14 @@ declare -a ZSA_WALLY=(
   libusb-1.0-0-dev:amd64
 )
 # }}}
+# QMK {{{
+declare -a QMK=(
+  gcc-arm-none-eabi
+  gcc-avr
+  dfu-programmer
+  dfu-util
+)
+# }}}
 
 PKGS=(  # {{{
   "${TEXT_EDITORS[@]}"
@@ -231,6 +239,7 @@ PKGS=(  # {{{
   "${BROWSER[@]}"
   "${SUCKLESS_SOFTWARE[@]}"
   "${ZSA_WALLY[@]}"
+  "${QMK[@]}"
 )
 # }}}
 
