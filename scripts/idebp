@@ -3,7 +3,8 @@
 # author: Marcelo Barboza <salve.barboza@pm.me>
 # date: 2024-01-11
 
-function NEWDEB() {  # {{{
+# NEWDEB {{{
+function NEWDEB() {
   PKG="$1"
   if [[ -n "$(dpkg -l | sed -n "/^ii\s\+\<${PKG}\>\s\+/p")" ]]
   then
@@ -19,9 +20,10 @@ function NEWDEB() {  # {{{
     fi
     echo 'Done.'
   fi
-}  # }}}
-
-function PKGADD() {  # {{{
+}
+# }}}
+# PKGADD {{{
+function PKGADD() {
   PKG="$1"
   if [[ -n "$(dpkg -l | sed -n "/^ii\s\+\<${PKG}\>\s\+/p")" ]]
   then
@@ -42,11 +44,13 @@ function PKGADD() {  # {{{
       echo 'Done.'
     fi
   fi
-}  # }}}
-
-function HELP() {  # {{{
+}
+# }}}
+# HELP {{{
+function HELP() {
   echo "Don't panic!"
-}  # }}}
+}
+# }}}
 
 # TEXT_EDITORS {{{
 declare -a TEXT_EDITORS=(
