@@ -47,6 +47,7 @@ platformdirs
 pycparser
 python-bcb
 python-dotenv
+qmk
 selenium
 typing_extensions
 )
