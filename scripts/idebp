@@ -100,6 +100,7 @@ declare -a MAIL_CHAT_AND_NEWS=(
 # SYSTEM_MAINTENANCE {{{
 declare -a SYSTEM_MAINTENANCE=(
   aptitude
+  debconf-utils
   deborphan
   debsums
   stow
