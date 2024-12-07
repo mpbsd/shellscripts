@@ -1,47 +1,38 @@
 #!/usr/bin/env bash
-#
-# author: Marcelo Barboza <salve.barboza@pm.me>
-# date: 2024-01-11
+###############################################################################
+# author: Marcelo Barboza <salve.barboza@pm.me>                               #
+# date: 2024-12-07                                                            #
+###############################################################################
 
-# NEWDEB {{{
-function NEWDEB() {
-  PKG="$1"
-  if [[ -n "$(dpkg -l | sed -n "/^ii\s\+\<${PKG}\>\s\+/p")" ]]
-  then
-    echo "Found: ${PKG}"
-  else
-    echo "Installing package: ${PKG}"
-    if echo "$PKG" | grep -qF ':amd64'
-    then
-      LIB="${PKG/%:amd64/}"
-      sudo apt install -y "$LIB"
-    else
-      sudo apt install -y "$PKG"
-    fi
-    echo 'Done.'
-  fi
-}
-# }}}
 # PKGADD {{{
 function PKGADD() {
-  PKG="$1"
-  if [[ -n "$(dpkg -l | sed -n "/^ii\s\+\<${PKG}\>\s\+/p")" ]]
+  STATUS="$1"
+  BUNDLE="$2"
+  if [[ -n "$(dpkg -l | sed -n "/^ii\s\+\<${BUNDLE}\>\s\+/p")" ]]
   then
-    echo "Found: ${PKG}"
+    echo "Found: ${BUNDLE}"
   else
-    echo -n "Package ${PKG} not found. Would you like to install it? (y/N) "
-    read -r ANSWER
-    if [[ "${ANSWER}" = 'y' ]]
+    if [[ "$STATUS" = '--new-system' ]]
     then
-      echo 'Proceeding with package installation.'
-      if echo "$PKG" | grep -qF ':amd64'
+      echo -n "Package ${BUNDLE} not found."
+      if echo "$BUNDLE" | grep -qF ':amd64'
       then
-        LIB="${PKG/%:amd64/}"
-        sudo apt install -y "$LIB"
+        STACKS="${BUNDLE/%:amd64/}"
+        sudo apt install -y "$STACKS"
       else
-        sudo apt install -y "$PKG"
+        sudo apt install -y "$BUNDLE"
       fi
-      echo 'Done.'
+      echo "Done installing ${BUNDLE}."
+    else
+      echo -n "Package ${BUNDLE} not found."
+      if echo "$BUNDLE" | grep -qF ':amd64'
+      then
+        STACKS="${BUNDLE/%:amd64/}"
+        sudo apt install "$STACKS"
+      else
+        sudo apt install "$BUNDLE"
+      fi
+      echo "Done installing ${BUNDLE}."
     fi
   fi
 }
@@ -207,13 +198,23 @@ declare -a SUCKLESS_SOFTWARE=(
   libharfbuzz-dev:amd64
 )
 # }}}
+# NEOVIM {{{
+declare -a NEOVIM=(
+  ninja-build
+  gettext
+  cmake
+  unzip
+  curl
+  build-essential
+)
+# }}}
 # ZSA_WALLY {{{
 declare -a ZSA_WALLY=(
   libusb-1.0-0-dev:amd64
 )
 # }}}
 
-PKGS=(  # {{{
+BUNDLES=(  # {{{
   "${TEXT_EDITORS[@]}"
   "${C_DEVELOPMENT[@]}"
   "${CONTAINERS[@]}"
@@ -231,23 +232,25 @@ PKGS=(  # {{{
   "${IMAGE[@]}"
   "${BROWSER[@]}"
   "${SUCKLESS_SOFTWARE[@]}"
+  "${NEOVIM[@]}"
   "${ZSA_WALLY[@]}"
 )
 # }}}
 
+# INSTALLING BUNDLES {{{
 if [[ "$#" -eq 1 ]]
 then
   case "$1" in
-    -n | --prepare-new-system)
-      for PKG in "${PKGS[@]}"
+    -n | --new-system)
+      for BUNDLE in "${BUNDLES[@]}"
       do
-        NEWDEB "$PKG"
+        PKGADD --new-system "$BUNDLE"
       done
       ;;
     -i | --install-missing-packages)
-      for PKG in "${PKGS[@]}"
+      for BUNDLE in "${BUNDLES[@]}"
       do
-        PKGADD "$PKG"
+        PKGADD --install-missing-packages "$BUNDLE"
       done
       ;;
     *)
@@ -257,5 +260,6 @@ then
 else
   HELP
 fi
+# }}}
 
 exit 0
