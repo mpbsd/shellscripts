@@ -12,7 +12,7 @@ function PKGADD() {
   then
     echo "Found: ${BUNDLE}"
   else
-    if [[ "$STATUS" = '--new-system' ]]
+    if [[ "$STATUS" = '--install-all-packages-in-a-new-debian-system' ]]
     then
       echo -n "Package ${BUNDLE} not found."
       if echo "$BUNDLE" | grep -qF ':amd64'
@@ -102,6 +102,7 @@ declare -a FUN_AND_GAMES=(
   bsdgames
   cowsay
   fortunes
+  lolcat
   stockfish
 )
 # }}}
@@ -150,6 +151,7 @@ declare -a COREUTILS=(
   silversearcher-ag
   thefuck
   tmux
+  vifm
   zathura
   zathura-djvu
 )
@@ -180,10 +182,10 @@ declare -a IMAGE=(
 )
 # }}}
 # BROWSER {{{
-declare -a BROWSER=(
-  chromium
-  chromium-driver
-)
+# declare -a BROWSER=(
+#   chromium
+#   chromium-driver
+# )
 # }}}
 # SUCKLESS_SOFTWARE {{{
 declare -a SUCKLESS_SOFTWARE=(
@@ -241,10 +243,10 @@ BUNDLES=(  # {{{
 if [[ "$#" -eq 1 ]]
 then
   case "$1" in
-    -n | --new-system)
+    -a | --install-all-packages-in-a-new-debian-system)
       for BUNDLE in "${BUNDLES[@]}"
       do
-        PKGADD --new-system "$BUNDLE"
+        PKGADD --install-all-packages-in-a-new-debian-system "$BUNDLE"
       done
       ;;
     -i | --install-missing-packages)
