@@ -15,6 +15,7 @@ function SOURCE() {
   ORIG[kanata_cfg]="$SRC2"
   ORIG[kanata_ctl]="$SRC2"
   ORIG[lf]="$SRC2"
+  ORIG[nvim]="$SRC2"
   ORIG[tmux]="$SRC2"
   ORIG[vim]="$SRC2"
   ORIG[zathura]="$SRC2"
@@ -36,6 +37,7 @@ function TARGET() {
   DEST[kanata_cfg]='.config/kanata'
   DEST[kanata_ctl]='.config/systemd/user'
   DEST[lf]='.config/lf'
+  DEST[nvim]='.config/nvim'
   DEST[tmux]='.config/tmux'
   DEST[vim]='.vim'
   DEST[zathura]='.config/zathura'
@@ -73,6 +75,7 @@ function AVAILABLE_DOTFILES() {
   \t- mutt
   \t- kanata
   \t- lf
+  \t- nvim
   \t- tmux
   \t- vim
   \t- zathura
@@ -114,6 +117,9 @@ if [ "$#" -eq 2 ]; then
         lf)
           INSTALL lf
           ;;
+        nvim)
+          INSTALL nvim
+          ;;
         tmux)
           INSTALL tmux
           ;;
@@ -136,6 +142,7 @@ if [ "$#" -eq 2 ]; then
           INSTALL kanata_cfg
           INSTALL kanata_ctl
           INSTALL lf
+          INSTALL nvim
           INSTALL tmux
           INSTALL vim
           INSTALL zathura
@@ -173,6 +180,9 @@ if [ "$#" -eq 2 ]; then
         lf)
           UNINSTALL lf
           ;;
+        nvim)
+          UNINSTALL nvim
+          ;;
         tmux)
           UNINSTALL tmux
           ;;
@@ -195,6 +205,7 @@ if [ "$#" -eq 2 ]; then
           UNINSTALL kanata_cfg
           UNINSTALL kanata_ctl
           UNINSTALL lf
+          UNINSTALL nvim
           UNINSTALL tmux
           UNINSTALL vim
           UNINSTALL zathura
