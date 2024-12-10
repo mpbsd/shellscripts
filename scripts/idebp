@@ -182,10 +182,10 @@ declare -a IMAGE=(
 )
 # }}}
 # BROWSER {{{
-# declare -a BROWSER=(
-#   chromium
-#   chromium-driver
-# )
+declare -a BROWSER=(
+  chromium
+  chromium-driver
+)
 # }}}
 # SUCKLESS_SOFTWARE {{{
 declare -a SUCKLESS_SOFTWARE=(
