@@ -45,6 +45,7 @@ pandas
 pathspec
 platformdirs
 pycparser
+pynvim
 python-bcb
 python-dotenv
 qmk
