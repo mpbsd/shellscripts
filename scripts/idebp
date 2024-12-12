@@ -58,6 +58,12 @@ declare -a C_DEVELOPMENT=(
   valgrind
 )
 # }}}
+# NODE {{{
+declare -a NODE=(
+  nodejs
+  npm
+)
+# }}}
 # CONTAINERS {{{
 declare -a CONTAINERS=(
   podman
@@ -219,6 +225,7 @@ declare -a ZSA_WALLY=(
 BUNDLES=(  # {{{
   "${TEXT_EDITORS[@]}"
   "${C_DEVELOPMENT[@]}"
+  "${NODE[@]}"
   "${CONTAINERS[@]}"
   "${PYTHON_DEVELOPMENT[@]}"
   "${DATABASE[@]}"
