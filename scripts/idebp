@@ -58,6 +58,12 @@ declare -a C_DEVELOPMENT=(
   valgrind
 )
 # }}}
+# LUA {{{
+declare -a LUA=(
+  lua5.1
+  luarocks
+)
+# }}}
 # NODE {{{
 declare -a NODE=(
   nodejs
@@ -225,6 +231,7 @@ declare -a ZSA_WALLY=(
 BUNDLES=(  # {{{
   "${TEXT_EDITORS[@]}"
   "${C_DEVELOPMENT[@]}"
+  "${LUA[@]}"
   "${NODE[@]}"
   "${CONTAINERS[@]}"
   "${PYTHON_DEVELOPMENT[@]}"
