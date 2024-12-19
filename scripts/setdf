@@ -11,8 +11,8 @@ function SOURCE() {
   ORIG[irssi]="$SRC1"
   ORIG[mutt]="$SRC1"
   ORIG[alacritty]="$SRC2"
-  ORIG[kanata_cfg]="$SRC2"
-  ORIG[kanata_ctl]="$SRC2"
+  # ORIG[kanata_cfg]="$SRC2"
+  # ORIG[kanata_ctl]="$SRC2"
   ORIG[lf]="$SRC2"
   ORIG[tmux]="$SRC2"
   ORIG[vim]="$SRC2"
@@ -31,8 +31,8 @@ function TARGET() {
   DEST[irssi]='.irssi'
   DEST[mutt]='.mutt'
   DEST[alacritty]='.config/alacritty'
-  DEST[kanata_cfg]='.config/kanata'
-  DEST[kanata_ctl]='.config/systemd/user'
+  # DEST[kanata_cfg]='.config/kanata'
+  # DEST[kanata_ctl]='.config/systemd/user'
   DEST[lf]='.config/lf'
   DEST[tmux]='.config/tmux'
   DEST[vim]='.vim'
@@ -68,7 +68,7 @@ function AVAILABLE_DOTFILES() {
   \t- git
   \t- irssi
   \t- mutt
-  \t- kanata
+  # \t- kanata
   \t- lf
   \t- tmux
   \t- vim
@@ -101,10 +101,10 @@ if [ "$#" -eq 2 ]; then
         alacritty)
           INSTALL alacritty
           ;;
-        kanata)
-          INSTALL kanata_cfg
-          INSTALL kanata_ctl
-          ;;
+        # kanata)
+        #   INSTALL kanata_cfg
+        #   INSTALL kanata_ctl
+        #   ;;
         lf)
           INSTALL lf
           ;;
@@ -126,8 +126,8 @@ if [ "$#" -eq 2 ]; then
           INSTALL irssi
           INSTALL mutt
           INSTALL alacritty
-          INSTALL kanata_cfg
-          INSTALL kanata_ctl
+          # INSTALL kanata_cfg
+          # INSTALL kanata_ctl
           INSTALL lf
           INSTALL tmux
           INSTALL vim
@@ -156,10 +156,10 @@ if [ "$#" -eq 2 ]; then
         alacritty)
           UNINSTALL alacritty
           ;;
-        kanata)
-          UNINSTALL kanata_cfg
-          UNINSTALL kanata_ctl
-          ;;
+        # kanata)
+        #   UNINSTALL kanata_cfg
+        #   UNINSTALL kanata_ctl
+        #   ;;
         lf)
           UNINSTALL lf
           ;;
@@ -181,8 +181,8 @@ if [ "$#" -eq 2 ]; then
           UNINSTALL irssi
           UNINSTALL mutt
           UNINSTALL alacritty
-          UNINSTALL kanata_cfg
-          UNINSTALL kanata_ctl
+          # UNINSTALL kanata_cfg
+          # UNINSTALL kanata_ctl
           UNINSTALL lf
           UNINSTALL tmux
           UNINSTALL vim
