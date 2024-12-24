@@ -181,6 +181,11 @@ declare -a SHELL=(
   zsh-syntax-highlighting
 )
 # }}}
+# TERMINAL {{{
+declare -a TERMINAL=(
+  kitty
+)
+# }}}
 # LATEX {{{
 declare -a LATEX=(
   texlive-full
@@ -244,6 +249,7 @@ BUNDLES=(  # {{{
   "${BLOGGING[@]}"
   "${COREUTILS[@]}"
   "${SHELL[@]}"
+  "${TERMINAL[@]}"
   "${LATEX[@]}"
   "${IMAGE[@]}"
   "${BROWSER[@]}"

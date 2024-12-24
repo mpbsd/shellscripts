@@ -14,6 +14,7 @@ function SOURCE() {
   ORIG[containers]="$SRC2"
   ORIG[kanata_cfg]="$SRC2"
   ORIG[kanata_ctl]="$SRC2"
+  ORIG[kitty]="$SRC2"
   ORIG[lf]="$SRC2"
   ORIG[nvim]="$SRC2"
   ORIG[tmux]="$SRC2"
@@ -36,6 +37,7 @@ function TARGET() {
   DEST[containers]='.config/containers'
   DEST[kanata_cfg]='.config/kanata'
   DEST[kanata_ctl]='.config/systemd/user'
+  DEST[kitty]='.config/kitty'
   DEST[lf]='.config/lf'
   DEST[nvim]='.config/nvim'
   DEST[tmux]='.config/tmux'
@@ -74,6 +76,7 @@ function AVAILABLE_DOTFILES() {
   \t- irssi
   \t- mutt
   \t- kanata
+  \t- kitty
   \t- lf
   \t- nvim
   \t- tmux
@@ -114,6 +117,9 @@ if [ "$#" -eq 2 ]; then
           INSTALL kanata_cfg
           INSTALL kanata_ctl
           ;;
+        kitty)
+          INSTALL kitty
+          ;;
         lf)
           INSTALL lf
           ;;
@@ -141,6 +147,7 @@ if [ "$#" -eq 2 ]; then
           INSTALL containers
           INSTALL kanata_cfg
           INSTALL kanata_ctl
+          INSTALL kitty
           INSTALL lf
           INSTALL nvim
           INSTALL tmux
@@ -177,6 +184,9 @@ if [ "$#" -eq 2 ]; then
           UNINSTALL kanata_cfg
           UNINSTALL kanata_ctl
           ;;
+        kitty)
+          UNINSTALL kitty
+          ;;
         lf)
           UNINSTALL lf
           ;;
@@ -204,6 +214,7 @@ if [ "$#" -eq 2 ]; then
           UNINSTALL containers
           UNINSTALL kanata_cfg
           UNINSTALL kanata_ctl
+          UNINSTALL kitty
           UNINSTALL lf
           UNINSTALL nvim
           UNINSTALL tmux
