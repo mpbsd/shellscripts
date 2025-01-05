@@ -8,15 +8,12 @@
 function PKGADD() {
   STATUS="$1"
   BUNDLE="$2"
-  if [[ -n "$(dpkg -l | sed -n "/^ii\s\+\<${BUNDLE}\>\s\+/p")" ]]
-  then
+  if [[ -n "$(dpkg -l | sed -n "/^ii\s\+\<${BUNDLE}\>\s\+/p")" ]]; then
     echo "Found: ${BUNDLE}"
   else
-    if [[ "$STATUS" = '--install-all-packages-in-a-new-debian-system' ]]
-    then
+    if [[ "$STATUS" = '--install-all-packages-in-a-new-debian-system' ]]; then
       echo -n "Package ${BUNDLE} not found."
-      if echo "$BUNDLE" | grep -qF ':amd64'
-      then
+      if echo "$BUNDLE" | grep -qF ':amd64'; then
         STACKS="${BUNDLE/%:amd64/}"
         sudo apt install -y "$STACKS"
       else
@@ -25,8 +22,7 @@ function PKGADD() {
       echo "Done installing ${BUNDLE}."
     else
       echo -n "Package ${BUNDLE} not found."
-      if echo "$BUNDLE" | grep -qF ':amd64'
-      then
+      if echo "$BUNDLE" | grep -qF ':amd64'; then
         STACKS="${BUNDLE/%:amd64/}"
         sudo apt install "$STACKS"
       else
@@ -83,6 +79,7 @@ declare -a PYTHON_DEVELOPMENT=(
 # }}}
 # DATABASE {{{
 declare -a DATABASE=(
+  filezilla
   mariadb-client
   mariadb-server
   postgresql
@@ -149,6 +146,7 @@ declare -a COREUTILS=(
   groff
   gtypist
   hub
+  jhead
   ledger
   lf
   ncdu
@@ -233,7 +231,7 @@ declare -a ZSA_WALLY=(
 )
 # }}}
 
-BUNDLES=(  # {{{
+BUNDLES=( # {{{
   "${TEXT_EDITORS[@]}"
   "${C_DEVELOPMENT[@]}"
   "${LUA[@]}"
@@ -260,24 +258,21 @@ BUNDLES=(  # {{{
 # }}}
 
 # INSTALLING BUNDLES {{{
-if [[ "$#" -eq 1 ]]
-then
+if [[ "$#" -eq 1 ]]; then
   case "$1" in
-    -a | --install-all-packages-in-a-new-debian-system)
-      for BUNDLE in "${BUNDLES[@]}"
-      do
-        PKGADD --install-all-packages-in-a-new-debian-system "$BUNDLE"
-      done
-      ;;
-    -i | --install-missing-packages)
-      for BUNDLE in "${BUNDLES[@]}"
-      do
-        PKGADD --install-missing-packages "$BUNDLE"
-      done
-      ;;
-    *)
-      HELP
-      ;;
+  -a | --install-all-packages-in-a-new-debian-system)
+    for BUNDLE in "${BUNDLES[@]}"; do
+      PKGADD --install-all-packages-in-a-new-debian-system "$BUNDLE"
+    done
+    ;;
+  -i | --install-missing-packages)
+    for BUNDLE in "${BUNDLES[@]}"; do
+      PKGADD --install-missing-packages "$BUNDLE"
+    done
+    ;;
+  *)
+    HELP
+    ;;
   esac
 else
   HELP

@@ -1,95 +1,88 @@
 #!/usr/bin/env bash
 
-
 VENV="${HOME}/.local/share/python3"
-
 
 # PKGS {{{
 declare -a PKGS=(
-Flask
-Flask-Login
-Flask-Mail
-Flask-Migrate
-Flask-SQLAlchemy
-Flask-WTF
-Jinja2
-Mako
-MarkupSafe
-PyJWT
-PyMySQL
-SQLAlchemy
-Unidecode
-WTForms
-Werkzeug
-alembic
-beautifulsoup4
-black
-blinker
-cffi
-click
-cryptography
-dnspython
-email-validator
-gender-guesser-br
-google-generativeai
-greenlet
-gunicorn
-idna
-isort
-itsdangerous
-lxml
-matplotlib
-mypy-extensions
-packaging
-pandas
-pathspec
-platformdirs
-pycparser
-pynvim
-python-bcb
-python-dotenv
-qmk
-selenium
-typing_extensions
+  Flask
+  Flask-Login
+  Flask-Mail
+  Flask-Migrate
+  Flask-SQLAlchemy
+  Flask-WTF
+  Jinja2
+  Mako
+  MarkupSafe
+  PyJWT
+  PyMySQL
+  SQLAlchemy
+  Unidecode
+  WTForms
+  Werkzeug
+  alembic
+  beautifulsoup4
+  black
+  blinker
+  cffi
+  click
+  cryptography
+  django
+  dnspython
+  email-validator
+  gender-guesser-br
+  google-generativeai
+  greenlet
+  gunicorn
+  idna
+  isort
+  itsdangerous
+  lxml
+  matplotlib
+  mypy-extensions
+  packaging
+  pandas
+  pathspec
+  platformdirs
+  pycparser
+  pynvim
+  python-bcb
+  python-dotenv
+  qmk
+  selenium
+  typing_extensions
 )
 # }}}
-
 
 function HELP() {
   echo 'Help message.'
 }
 
-
-if [[ "$#" -eq 1 ]]
-then
+if [[ "$#" -eq 1 ]]; then
   case "$1" in
-    -i|--install-packages)
-      [[ "$(which python3)" = "${VENV}/bin/python3" ]] || exit 10
-      pip install --upgrade pip | sed -n '/^Requirement/!p'
-      for PKG in "${PKGS[@]}"
-      do
-        if [[ "$(pip show "$PKG" | sed -n '/^Name/p')" = "Name: $PKG" ]]
-        then
-          echo "U: $PKG"
-          pip install --upgrade "$PKG" | sed -n '/^Requirement/!p'
-        else
-          echo "I: $PKG"
-          pip install "$PKG" | sed -n '/^Requirement/!p'
-        fi
-      done
-      ;;
-    -r|--remove-venv)
-      [[ "$(which python3)" = "${VENV}/bin/python3" ]] || exit 11
-      [[ -d "$VENV" ]]                                 || exit 12
-      rm -rf "$VENV"
-      ;;
-    *)
-      HELP
-      ;;
+  -i | --install-packages)
+    [[ "$(which python3)" = "${VENV}/bin/python3" ]] || exit 10
+    pip install --upgrade pip | sed -n '/^Requirement/!p'
+    for PKG in "${PKGS[@]}"; do
+      if [[ "$(pip show "$PKG" | sed -n '/^Name/p')" = "Name: $PKG" ]]; then
+        echo "U: $PKG"
+        pip install --upgrade "$PKG" | sed -n '/^Requirement/!p'
+      else
+        echo "I: $PKG"
+        pip install "$PKG" | sed -n '/^Requirement/!p'
+      fi
+    done
+    ;;
+  -r | --remove-venv)
+    [[ "$(which python3)" = "${VENV}/bin/python3" ]] || exit 11
+    [[ -d "$VENV" ]] || exit 12
+    rm -rf "$VENV"
+    ;;
+  *)
+    HELP
+    ;;
   esac
 else
   HELP
 fi
-
 
 exit 0
