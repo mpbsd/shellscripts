@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -e
+
+function HELP() {
+  echo 'Don'\''t panic!'
+}
+
+case "$1" in
+-l | --left-handed)
+  xmodmap -e 'pointer = 3 0 1 5 4 0 0 0 0 0'
+  ;;
+-r | --right-handed)
+  xmodmap -e 'pointer = 1 0 3 4 5 0 0 0 0 0'
+  ;;
+*)
+  HELP
+  ;;
+esac
+
+exit 0

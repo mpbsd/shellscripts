@@ -79,7 +79,6 @@ declare -a PYTHON_DEVELOPMENT=(
 # }}}
 # DATABASE {{{
 declare -a DATABASE=(
-  filezilla
   mariadb-client
   mariadb-server
   postgresql
@@ -162,6 +161,7 @@ declare -a COREUTILS=(
   thefuck
   tmux
   vifm
+  xinput
   zathura
   zathura-djvu
 )
@@ -187,6 +187,7 @@ declare -a TERMINAL=(
 # LATEX {{{
 declare -a LATEX=(
   texlive-full
+  xapers
 )
 # }}}
 # IMAGE {{{
