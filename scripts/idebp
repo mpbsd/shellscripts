@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ###############################################################################
 # author: Marcelo Barboza <salve.barboza@pm.me>                               #
-# date: 2024-12-07                                                            #
+# date: 2025-01-22                                                            #
 ###############################################################################
 
 # PKGADD {{{
@@ -22,20 +22,44 @@ function PKGADD() {
       echo "Done installing ${BUNDLE}."
     else
       echo -n "Package ${BUNDLE} not found."
-      if echo "$BUNDLE" | grep -qF ':amd64'; then
-        STACKS="${BUNDLE/%:amd64/}"
-        sudo apt install "$STACKS"
-      else
-        sudo apt install "$BUNDLE"
+      echo -n " Would you like to install it? (y/N)"
+      read -r ANSWER
+      if [[ "$ANSWER" = 'y' ]]; then
+        if echo "$BUNDLE" | grep -qF ':amd64'; then
+          STACKS="${BUNDLE/%:amd64/}"
+          sudo apt install -y "$STACKS"
+        else
+          sudo apt install -y "$BUNDLE"
+        fi
+        echo "Done installing ${BUNDLE}."
       fi
-      echo "Done installing ${BUNDLE}."
     fi
   fi
 }
 # }}}
+
 # HELP {{{
 function HELP() {
-  echo "Don't panic!"
+  printf '
+  Usage: idebp [OPTION]
+
+  \tInstalls my selection of packages on a Debian GNU/Linux system using apt.
+
+  Available options:
+
+  [-a|--install-all-packages-in-a-new-debian-system]
+
+  \tAs the name suggests, this is intended to be used on a fresh installation of
+  \tDebian. It appends the -y flag to every package in the list.
+
+  [-i|--install-missing-packages]
+
+  \tInstall missing packages individually. Does not append the -y flag by
+  \tdefault. Should be invoked every time a new package is added to the list.
+
+  [-h|--help]
+
+  \tPrints this message on the screen.\n\n'
 }
 # }}}
 
@@ -52,6 +76,7 @@ declare -a C_DEVELOPMENT=(
   glibc-doc
   universal-ctags
   valgrind
+  tcc
 )
 # }}}
 # LUA {{{
@@ -85,6 +110,7 @@ declare -a DATABASE=(
   postgresql-client
   sqlite3
   sqlite3-doc
+  xapers
 )
 # }}}
 # MAIL_CHAT_AND_NEWS {{{
@@ -187,12 +213,11 @@ declare -a TERMINAL=(
 # LATEX {{{
 declare -a LATEX=(
   texlive-full
-  xapers
 )
 # }}}
 # IMAGE {{{
 declare -a IMAGE=(
-  blender
+  # blender
   gimp
   inkscape
 )
