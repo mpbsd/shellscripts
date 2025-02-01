@@ -22,7 +22,7 @@ function PKGADD() {
       echo "Done installing ${BUNDLE}."
     else
       echo -n "Package ${BUNDLE} not found."
-      echo -n " Would you like to install it? (y/N)"
+      echo -n " Would you like to install it? (y/N) "
       read -r ANSWER
       if [[ "$ANSWER" = 'y' ]]; then
         if echo "$BUNDLE" | grep -qF ':amd64'; then
@@ -50,7 +50,7 @@ function HELP() {
   [-a|--install-all-packages-in-a-new-debian-system]
 
   \tAs the name suggests, this is intended to be used on a fresh installation of
-  \tDebian. It appends the -y flag to every package in the list.
+  \tDebian. By default, it appends the -y flag to every package in the list.
 
   [-i|--install-missing-packages]
 
@@ -94,6 +94,7 @@ declare -a NODE=(
 # CONTAINERS {{{
 declare -a CONTAINERS=(
   podman
+  podman-compose
 )
 # }}}
 # PYTHON_DEVELOPMENT {{{
