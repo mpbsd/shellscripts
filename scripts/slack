@@ -10,12 +10,12 @@
 #   - dd                                                                       #
 #   - gpg                                                                      #
 #   - grep                                                                     #
-#   - sha512sum                                                                #
+#   - md5sum                                                                   #
 #   - wget                                                                     #
 #                                                                              #
 # Purpose:                                                                     #
 #                                                                              #
-#   - Download amd64-netinst.iso from Debian GNU/Linux                         #
+#   - Download slackware64-15.0-install-dvd.iso from slackware.com             #
 #   - Verify both the authenticity and the integrity of the downloaded iso     #
 #   - Create an USB installation media (target device defaults to /dev/sdb)    #
 #                                                                              #
@@ -25,37 +25,39 @@
 #                                                                              #
 ################################################################################
 
-URL='https://cdimage.debian.org/debian-cd/current/amd64/iso-cd'
-VER='12.9.0'
-ISO="debian-${VER}-amd64-netinst.iso"
-SUM='SHA512SUMS'
-SGN='SHA512SUMS.sign'
-DIR="${HOME}/downloads/debian"
+# vars: AD1, AD2, DIR, ISO, ASC, MD5, TXT, KEY {{{
+AD1="https://mirrors.slackware.com/slackware/slackware64-15.0/"
+AD2="https://mirrors.slackware.com/slackware/slackware-iso/slackware64-15.0-iso/"
+DIR="${HOME}/downloads/slackware"
+ISO='slackware64-15.0-install-dvd.iso'
+ASC='slackware64-15.0-install-dvd.iso.asc'
+MD5='slackware64-15.0-install-dvd.iso.md5'
+TXT='slackware64-15.0-install-dvd.iso.txt'
+KEY='GPG-KEY'
 TGT='/dev/sdb'
+# }}}
 
 [[ -d "$DIR"         ]]  || mkdir -p "$DIR"                || exit 10
 [[ "$(pwd)" = "$DIR" ]]  || cd "$DIR"                      || exit 11
-[[ -f "$SUM"         ]]  || wget "${URL}/${SUM}" -O "$SUM" || exit 12
-[[ -f "$SGN"         ]]  || wget "${URL}/${SGN}" -O "$SGN" || exit 13
-[[ -f "$ISO"         ]]  || wget "${URL}/${ISO}" -O "$ISO" || exit 14
+[[ -f "$KEY"         ]]  || wget "${AD1}/${KEY}" -O "$KEY" || exit 12
+[[ -f "$ISO"         ]]  || wget "${AD2}/${ISO}" -O "$ISO" || exit 13
+[[ -f "$ASC"         ]]  || wget "${AD2}/${ASC}" -O "$ASC" || exit 14
+[[ -f "$MD5"         ]]  || wget "${AD2}/${MD5}" -O "$MD5" || exit 15
+[[ -f "$TXT"         ]]  || wget "${AD2}/${TXT}" -O "$TXT" || exit 16
 
-if ! gpg -k | grep -qF 'rsa4096/0x988021A964E6EA7D'; then
-  gpg --keyserver keyring.debian.org --recv-keys 988021A964E6EA7D
+if ! gpg -k | grep -qF 'dsa1024/0x6A4463C040102233'; then
+  gpg --import "${KEY}"
 fi
 
-if ! gpg -k | grep -qF 'rsa4096/0xDA87E80D6294BE9B'; then
-  gpg --keyserver keyring.debian.org --recv-keys DA87E80D6294BE9B
-fi
+gpg --verify "$ASC" "$ISO"
+md5sum -c --ignore-missing "$MD5"
 
-gpg --verify "$SGN" "$SUM"
-sha512sum -c --ignore-missing "$SUM"
-
-echo -n 'Do you want to create an installation media for debian 12 amd64? '
+echo -n 'Do you want to create an installation media for slackware64 15.0? '
 echo -n "All data on the target USB device $TGT will be destroyed. "
 echo -n '(y/N) '
 read -r ANSWER
 
-if [[ "$ANSWER" = 'y' ]]; then
+if [ "$ANSWER" = 'y' ]; then
   sudo dd if="$ISO" of="$TGT" bs=16M status=progress oflag=sync
 fi
 
