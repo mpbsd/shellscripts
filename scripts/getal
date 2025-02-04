@@ -33,11 +33,11 @@ SHA="sha256sums.txt"
 DIR="${HOME}/downloads/archlinux"
 TGT='/dev/sdb'
 
-[[ -d "$DIR" ]] || mkdir -p "$DIR" || exit 10
-[[ "$(pwd)" = "$DIR" ]] || cd "$DIR" || exit 11
-[[ -f "$ISO" ]] || wget "${URL}/${VRS}/$ISO" -O "${DIR}/${ISO}" || exit 12
-[[ -f "$PGP" ]] || wget "${URL}/${VRS}/$PGP" -O "${DIR}/${PGP}" || exit 13
-[[ -f "$SHA" ]] || wget "${URL}/${VRS}/$SHA" -O "${DIR}/${SHA}" || exit 14
+[[ -d "$DIR"         ]] || mkdir -p "$DIR"                              || exit 10
+[[ "$(pwd)" = "$DIR" ]] || cd "$DIR"                                    || exit 11
+[[ -f "$ISO"         ]] || wget "${URL}/${VRS}/$ISO" -O "${DIR}/${ISO}" || exit 12
+[[ -f "$PGP"         ]] || wget "${URL}/${VRS}/$PGP" -O "${DIR}/${PGP}" || exit 13
+[[ -f "$SHA"         ]] || wget "${URL}/${VRS}/$SHA" -O "${DIR}/${SHA}" || exit 14
 
 if ! gpg -k | grep -qF 'ed25519/0x76A5EF9054449A5C'; then
   gpg --auto-key-locate clear,wkd -v --locate-external-key pierre@archlinux.org
