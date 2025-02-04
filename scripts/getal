@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+################################################################################
+# Author:                                                                      #
+#                                                                              #
+#   Marcelo Barboza <salve.barboza@pm.me>                                      #
+#                                                                              #
+# Dependencies:                                                                #
+#                                                                              #
+#   - bash                                                                     #
+#   - dd                                                                       #
+#   - gpg                                                                      #
+#   - grep                                                                     #
+#   - sha512sum                                                                #
+#   - wget                                                                     #
+#                                                                              #
+# Purpose:                                                                     #
+#                                                                              #
+#   - Download archlinux-x86_64.iso from archlinux                             #
+#   - Verify both the authenticity and the integrity of the downloaded iso     #
+#   - Create an USB installation media (target device defaults to /dev/sdb)    #
+#                                                                              #
+# Last changed:                                                                #
+#                                                                              #
+#   Goiânia, 04 de fevereiro de 2025                                           #
+#                                                                              #
+################################################################################
+
+URL='https://archlinux.c3sl.ufpr.br/iso'
+VRS='2025.02.01'
+ISO="archlinux-${VRS}-x86_64.iso"
+PGP="archlinux-${VRS}-x86_64.iso.sig"
+SHA="sha256sums.txt"
+DIR="${HOME}/downloads/archlinux"
+TGT='/dev/sdb'
+
+[[ -d "$DIR" ]] || mkdir -p "$DIR" || exit 10
+[[ "$(pwd)" = "$DIR" ]] || cd "$DIR" || exit 11
+[[ -f "$ISO" ]] || wget "${URL}/${VRS}/$ISO" -O "${DIR}/${ISO}" || exit 12
+[[ -f "$PGP" ]] || wget "${URL}/${VRS}/$PGP" -O "${DIR}/${PGP}" || exit 13
+[[ -f "$SHA" ]] || wget "${URL}/${VRS}/$SHA" -O "${DIR}/${SHA}" || exit 14
+
+if ! gpg -k | grep -qF 'ed25519/0x76A5EF9054449A5C'; then
+  gpg --auto-key-locate clear,wkd -v --locate-external-key pierre@archlinux.org
+fi
+
+gpg --verify "$PGP" "$ISO"
+sha256sum -c --ignore-missing "$SHA"
+
+echo -n 'Do you want to create an installation media for archlinux? '
+echo -n "All data on the target USB device $TGT will be destroyed. "
+echo -n '(y/N) '
+read -r ANSWER
+
+if [[ "$ANSWER" = 'y' ]]; then
+  sudo dd if="$ISO" of="$TGT" bs=16M status=progress oflag=sync
+fi
+
+exit 0
