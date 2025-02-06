@@ -242,6 +242,13 @@ declare -a SUCKLESS_SOFTWARE=(
   libharfbuzz-dev:amd64
 )
 # }}}
+# AWESOME {{{
+declare -a AWESOME=(
+  awesome
+  nitrogen
+  picom
+)
+# }}}
 # NEOVIM {{{
 declare -a NEOVIM=(
   ninja-build
@@ -279,6 +286,7 @@ BUNDLES=( # {{{
   "${IMAGE[@]}"
   "${BROWSER[@]}"
   "${SUCKLESS_SOFTWARE[@]}"
+  "${AWESOME[@]}"
   "${NEOVIM[@]}"
   "${ZSA_WALLY[@]}"
 )

@@ -10,6 +10,7 @@ function SOURCE() {
   ORIG[git]="$SRC1"
   ORIG[irssi]="$SRC1"
   ORIG[mutt]="$SRC1"
+  ORIG[awesome]="$SRC2"
   ORIG[alacritty]="$SRC2"
   ORIG[containers]="$SRC2"
   ORIG[kanata_cfg]="$SRC2"
@@ -33,6 +34,7 @@ function TARGET() {
   DEST[git]='.config/git'
   DEST[irssi]='.irssi'
   DEST[mutt]='.mutt'
+  DEST[awesome]='.config/awesome'
   DEST[alacritty]='.config/alacritty'
   DEST[containers]='.config/containers'
   DEST[kanata_cfg]='.config/kanata'
@@ -70,6 +72,7 @@ function UNINSTALL() {
 function AVAILABLE_DOTFILES() {
   printf 'There are dotfiles currently available for the following programs:\n
   \t- abook
+  \t- awessome
   \t- alacritty
   \t- containers
   \t- git
@@ -107,6 +110,9 @@ if [ "$#" -eq 2 ]; then
         mutt)
           INSTALL mutt
           ;;
+        awesome)
+          INSTALL awesome
+          ;;
         alacritty)
           INSTALL alacritty
           ;;
@@ -143,6 +149,7 @@ if [ "$#" -eq 2 ]; then
           INSTALL git
           INSTALL irssi
           INSTALL mutt
+          INSTALL awesome
           INSTALL alacritty
           INSTALL containers
           INSTALL kanata_cfg
@@ -173,6 +180,9 @@ if [ "$#" -eq 2 ]; then
           ;;
         mutt)
           UNINSTALL mutt
+          ;;
+        awesome)
+          UNINSTALL awesome
           ;;
         alacritty)
           UNINSTALL alacritty
@@ -210,6 +220,7 @@ if [ "$#" -eq 2 ]; then
           UNINSTALL git
           UNINSTALL irssi
           UNINSTALL mutt
+          UNINSTALL awesome
           UNINSTALL alacritty
           UNINSTALL containers
           UNINSTALL kanata_cfg

@@ -10,7 +10,7 @@
 #   - dd                                                                       #
 #   - gpg                                                                      #
 #   - grep                                                                     #
-#   - sha512sum                                                                #
+#   - sha256sum                                                                #
 #   - wget                                                                     #
 #                                                                              #
 # Purpose:                                                                     #
