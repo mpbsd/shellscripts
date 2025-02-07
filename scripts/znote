@@ -4,24 +4,31 @@ ROOT="${HOME}/projects/zettelkasten"
 
 [ -d "$ROOT" ] || exit 10
 
+# CREATE {{{
 function CREATE() {
   UNIQ=$(date +'%Y%m%d%H%M')
   NOTE="${ROOT}/${UNIQ}.md"
   [ -f "$NOTE" ] || vim "$NOTE"
 }
+# }}}
 
+# SORT_TAGS_ALPHABETICALLY {{{
 function SORT_TAGS_ALPHABETICALLY() {
   DATE='[0-9]\{4\}\(0[1-9]\|1[0-2]\)\(0[1-9]\|[12][0-9]\|3[01]\)'
   TIME='\([01][0-9]\|2[0-3]\)\([0-5][0-9]\)'
   NOTE="${ROOT}/${DATE}${TIME}\.md"
   find "$ROOT/" -type f -regextype sed -regex "$NOTE" -exec sed -n '/^tags:$/,/^---$/p' {} \; |
-  sed -n '/^\(---\|tags:\)$/!p' | sed 's/^\s\+-\s//' | sort -u
+    sed -n '/^\(---\|tags:\)$/!p' | sed 's/^\s\+-\s//' | sort -u
 }
+# }}}
 
+# SORT_TITLES_ALPHABETICALLY {{{
 function SORT_TITLES_ALPHABETICALLY() {
   grep -E '^title:' "$ROOT"/*.md | sed "s@\(${ROOT}/\|\.md:title\)@@g" | sort
 }
+# }}}
 
+# HELP {{{
 function HELP() {
   printf 'Usage: znote [OPTION]\n
   -c, --create
@@ -33,23 +40,25 @@ function HELP() {
   -t, --title
         Sort titles alphabetically.\n'
 }
+# }}}
 
-case $1 in
-  -c | --create)
-    CREATE
-    ;;
-  -o | --open)
-    cd "$ROOT" && vim -c ':Ag'
-    ;;
-  -g | --tag)
-    SORT_TAGS_ALPHABETICALLY
-    ;;
-  -t | --title)
-    SORT_TITLES_ALPHABETICALLY
-    ;;
-  *)
-    HELP
-    ;;
+case "$1" in
+-c | --create)
+  CREATE
+  ;;
+-o | --open)
+  cd "$ROOT" || exit 11
+  vim -c ':Ag'
+  ;;
+-g | --tag)
+  SORT_TAGS_ALPHABETICALLY
+  ;;
+-t | --title)
+  SORT_TITLES_ALPHABETICALLY
+  ;;
+*)
+  HELP
+  ;;
 esac
 
 exit 0
