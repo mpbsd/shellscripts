@@ -6,7 +6,7 @@
 #                                                                              #
 # Dependencies:                                                                #
 #                                                                              #
-#   - Ag                                                                       #
+#   - Ag/Telescope                                                             #
 #   - bash                                                                     #
 #   - find                                                                     #
 #   - fzf                                                                      #
@@ -54,7 +54,7 @@ function CREATE() {
   N=$(printf '%03d' "$((M + 1))")
   TGT_JSON_FILE="${DEST}/${N}.json"
   TGT_TEX_FILE="${DEST}/${N}.tex"
-  vim -O "$TGT_JSON_FILE" "$TGT_TEX_FILE"
+  nvim -O "$TGT_JSON_FILE" "$TGT_TEX_FILE"
   find "$DEST" -type f -name '*.tex' | sort | tail -2 | sed "s@${DEST}/\([0-9]\{3\}\)\.tex@\\\\input{tex/${CODE}/\1}@" >"$LTEX"
 }
 # }}}
@@ -64,20 +64,43 @@ function EDIT() {
   [[ -d "$DEST" ]] || exit 13
   [[ -n "$(find "$DEST" -type f -name '*.tex')" ]] || exit 14
   cd "$DEST" || exit 15
-  vim -c Ag
+  nvim -c 'Telescope find_files'
 }
 # }}}
 
 # HELP {{{
 function HELP() {
-  # exit codes
-  # 10: incorrect number of arguments
-  # 11: root dir does not exist
-  # 12: json file does not exist
-  # 13: target dir does not exist
-  # 14: there are no files to edit
-  # 15: couldn't change directory to target destination
-  echo "Don't panic!"
+  printf '
+  Usage: cnote [OPTION]
+
+  \tShell script that helps me quickly and correctly place my math notes writen
+  \tin LaTeX.
+
+  Available options:
+
+  [-c|--create]
+
+  \tCreates notes sequentially. First, it prompts the user for the directory in
+  \twhich to save the notes. Then, inside the chosen directory, it creates both
+  \ta notes file (TeX) and a metadata (json) file.
+
+  [-e|--edit]
+
+  \tAsks the user for the directory in which to find the notes file to be
+  \tedited. Then, it prompts the user with a live grep environment so that
+  \the/she can find the notes file to be edited based on strings from within
+  \tthat file.
+
+  [-h|--help]
+
+  Error codes:
+
+  \t10: wrong number of arguments
+  \t11: notes directory does not exist
+  \t12: index file (json) does not exist
+  \t13: target dir does not exist
+  \t14: there are no files to edit
+  \t15: could not cd into the target destination\n\n'
 }
 # }}}
 
