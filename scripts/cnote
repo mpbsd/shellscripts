@@ -100,10 +100,12 @@ function HELP() {
   \t12: index file (json) does not exist
   \t13: target dir does not exist
   \t14: there are no files to edit
-  \t15: could not cd into the target destination\n\n'
+  \t15: could not cd into the target destination
+  \t16: cound not cd into thr root directory in order to compile document\n\n'
 }
 # }}}
 
+# CASE STATEMENT {{{
 case "$1" in
 -c | --create)
   TGTDIR
@@ -113,6 +115,10 @@ case "$1" in
   TGTDIR
   EDIT
   ;;
+-m | --make)
+  cd "$ROOT" || exit 16
+  make draft
+  ;;
 -h | --help)
   HELP
   ;;
@@ -120,5 +126,6 @@ case "$1" in
   HELP
   ;;
 esac
+# }}}
 
 exit 0
