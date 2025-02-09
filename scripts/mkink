@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+ROOT="${HOME}/projects/notes/fig"
+TPLT="${ROOT}/tpl.svg"
+STMP="$(date '+%Y%m%d%H%M')"
+COPY="${ROOT}/${STMP}.svg"
+
+[[ -d "$ROOT" ]] || exit 10
+[[ -f "$TPLT" ]] || exit 11
+
+cp "$TPLT" "$COPY"
+
+inkscape "$COPY"
+
+exit 0
