@@ -17,6 +17,7 @@ function SOURCE() {
   ORIG[kanata_ctl]="$SRC2"
   ORIG[kitty]="$SRC2"
   ORIG[lf]="$SRC2"
+  ORIG[newsboat]="$SRC2"
   ORIG[nvim]="$SRC2"
   ORIG[tmux]="$SRC2"
   ORIG[vim]="$SRC2"
@@ -41,6 +42,7 @@ function TARGET() {
   DEST[kanata_ctl]='.config/systemd/user'
   DEST[kitty]='.config/kitty'
   DEST[lf]='.config/lf'
+  DEST[newsboat]='.config/newsboat'
   DEST[nvim]='.config/nvim'
   DEST[tmux]='.config/tmux'
   DEST[vim]='.vim'
@@ -81,6 +83,7 @@ function AVAILABLE_DOTFILES() {
   \t- kanata
   \t- kitty
   \t- lf
+  \t- newsboat
   \t- nvim
   \t- tmux
   \t- vim
@@ -96,151 +99,159 @@ if [ "$#" -eq 2 ]; then
   ACT="$1"
   PKG="$2"
   case "$ACT" in
-    -i | --install)
-      case "$PKG" in
-        abook)
-          INSTALL abook
-          ;;
-        git)
-          INSTALL git
-          ;;
-        irssi)
-          INSTALL irssi
-          ;;
-        mutt)
-          INSTALL mutt
-          ;;
-        awesome)
-          INSTALL awesome
-          ;;
-        alacritty)
-          INSTALL alacritty
-          ;;
-        containers)
-          INSTALL containers
-          ;;
-        kanata)
-          INSTALL kanata_cfg
-          INSTALL kanata_ctl
-          ;;
-        kitty)
-          INSTALL kitty
-          ;;
-        lf)
-          INSTALL lf
-          ;;
-        nvim)
-          INSTALL nvim
-          ;;
-        tmux)
-          INSTALL tmux
-          ;;
-        vim)
-          INSTALL vim
-          ;;
-        zathura)
-          INSTALL zathura
-          ;;
-        zsh)
-          INSTALL zsh
-          ;;
-        all)
-          INSTALL abook
-          INSTALL git
-          INSTALL irssi
-          INSTALL mutt
-          INSTALL awesome
-          INSTALL alacritty
-          INSTALL containers
-          INSTALL kanata_cfg
-          INSTALL kanata_ctl
-          INSTALL kitty
-          INSTALL lf
-          INSTALL nvim
-          INSTALL tmux
-          INSTALL vim
-          INSTALL zathura
-          INSTALL zsh
-          ;;
-        *)
-          AVAILABLE_DOTFILES
-          ;;
-      esac
+  -i | --install)
+    case "$PKG" in
+    abook)
+      INSTALL abook
       ;;
-    -u | --uninstall)
-      case "$PKG" in
-        abook)
-          UNINSTALL abook
-          ;;
-        git)
-          UNINSTALL git
-          ;;
-        irssi)
-          UNINSTALL irssi
-          ;;
-        mutt)
-          UNINSTALL mutt
-          ;;
-        awesome)
-          UNINSTALL awesome
-          ;;
-        alacritty)
-          UNINSTALL alacritty
-          ;;
-        containers)
-          UNINSTALL containers
-          ;;
-        kanata)
-          UNINSTALL kanata_cfg
-          UNINSTALL kanata_ctl
-          ;;
-        kitty)
-          UNINSTALL kitty
-          ;;
-        lf)
-          UNINSTALL lf
-          ;;
-        nvim)
-          UNINSTALL nvim
-          ;;
-        tmux)
-          UNINSTALL tmux
-          ;;
-        vim)
-          UNINSTALL vim
-          ;;
-        zathura)
-          UNINSTALL zathura
-          ;;
-        zsh)
-          UNINSTALL zsh
-          ;;
-        all)
-          UNINSTALL abook
-          UNINSTALL git
-          UNINSTALL irssi
-          UNINSTALL mutt
-          UNINSTALL awesome
-          UNINSTALL alacritty
-          UNINSTALL containers
-          UNINSTALL kanata_cfg
-          UNINSTALL kanata_ctl
-          UNINSTALL kitty
-          UNINSTALL lf
-          UNINSTALL nvim
-          UNINSTALL tmux
-          UNINSTALL vim
-          UNINSTALL zathura
-          UNINSTALL zsh
-          ;;
-        *)
-          AVAILABLE_DOTFILES
-          ;;
-      esac
+    git)
+      INSTALL git
+      ;;
+    irssi)
+      INSTALL irssi
+      ;;
+    mutt)
+      INSTALL mutt
+      ;;
+    awesome)
+      INSTALL awesome
+      ;;
+    alacritty)
+      INSTALL alacritty
+      ;;
+    containers)
+      INSTALL containers
+      ;;
+    kanata)
+      INSTALL kanata_cfg
+      INSTALL kanata_ctl
+      ;;
+    kitty)
+      INSTALL kitty
+      ;;
+    lf)
+      INSTALL lf
+      ;;
+    newsboat)
+      INSTALL newsboat
+      ;;
+    nvim)
+      INSTALL nvim
+      ;;
+    tmux)
+      INSTALL tmux
+      ;;
+    vim)
+      INSTALL vim
+      ;;
+    zathura)
+      INSTALL zathura
+      ;;
+    zsh)
+      INSTALL zsh
+      ;;
+    all)
+      INSTALL abook
+      INSTALL git
+      INSTALL irssi
+      INSTALL mutt
+      INSTALL awesome
+      INSTALL alacritty
+      INSTALL containers
+      INSTALL kanata_cfg
+      INSTALL kanata_ctl
+      INSTALL kitty
+      INSTALL lf
+      INSTALL newsboat
+      INSTALL nvim
+      INSTALL tmux
+      INSTALL vim
+      INSTALL zathura
+      INSTALL zsh
       ;;
     *)
-      HELP
+      AVAILABLE_DOTFILES
       ;;
+    esac
+    ;;
+  -u | --uninstall)
+    case "$PKG" in
+    abook)
+      UNINSTALL abook
+      ;;
+    git)
+      UNINSTALL git
+      ;;
+    irssi)
+      UNINSTALL irssi
+      ;;
+    mutt)
+      UNINSTALL mutt
+      ;;
+    awesome)
+      UNINSTALL awesome
+      ;;
+    alacritty)
+      UNINSTALL alacritty
+      ;;
+    containers)
+      UNINSTALL containers
+      ;;
+    kanata)
+      UNINSTALL kanata_cfg
+      UNINSTALL kanata_ctl
+      ;;
+    kitty)
+      UNINSTALL kitty
+      ;;
+    lf)
+      UNINSTALL lf
+      ;;
+    newsboat)
+      UNINSTALL newsboat
+      ;;
+    nvim)
+      UNINSTALL nvim
+      ;;
+    tmux)
+      UNINSTALL tmux
+      ;;
+    vim)
+      UNINSTALL vim
+      ;;
+    zathura)
+      UNINSTALL zathura
+      ;;
+    zsh)
+      UNINSTALL zsh
+      ;;
+    all)
+      UNINSTALL abook
+      UNINSTALL git
+      UNINSTALL irssi
+      UNINSTALL mutt
+      UNINSTALL awesome
+      UNINSTALL alacritty
+      UNINSTALL containers
+      UNINSTALL kanata_cfg
+      UNINSTALL kanata_ctl
+      UNINSTALL kitty
+      UNINSTALL lf
+      UNINSTALL newsboat
+      UNINSTALL nvim
+      UNINSTALL tmux
+      UNINSTALL vim
+      UNINSTALL zathura
+      UNINSTALL zsh
+      ;;
+    *)
+      AVAILABLE_DOTFILES
+      ;;
+    esac
+    ;;
+  *)
+    HELP
+    ;;
   esac
 else
   HELP

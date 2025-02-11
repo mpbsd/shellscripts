@@ -1,4 +1,31 @@
 #!/usr/bin/env bash
+################################################################################
+# Author:                                                                      #
+#                                                                              #
+#   Marcelo Barboza <salve.barboza@pm.me>                                      #
+#                                                                              #
+# Dependencies:                                                                #
+#                                                                              #
+#   - Ag/Telescope                                                             #
+#   - bash                                                                     #
+#   - find                                                                     #
+#   - fzf                                                                      #
+#   - jq                                                                       #
+#   - vim/nvim                                                                 #
+#   - sed                                                                      #
+#   - sort                                                                     #
+#   - tail                                                                     #
+#   - tr                                                                       #
+#                                                                              #
+# Purpose:                                                                     #
+#                                                                              #
+#   - Create/Edit notes in LaTeX with Vim/Neovim                               #
+#                                                                              #
+# Last changed:                                                                #
+#                                                                              #
+#   Goiânia, 07 de fevereiro de 2025                                           #
+#                                                                              #
+################################################################################
 
 ROOT="${HOME}/projects/zettelkasten"
 
