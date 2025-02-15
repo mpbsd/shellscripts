@@ -49,8 +49,8 @@ function SORT_TAGS_ALPHABETICALLY() {
 }
 # }}}
 
-# SORT_TITLES_ALPHABETICALLY {{{
-function SORT_TITLES_ALPHABETICALLY() {
+# SORT_TITLES_CHRONOLOGICALLY {{{
+function SORT_TITLES_CHRONOLOGICALLY() {
   grep -E '^title:' "$ROOT"/*.md | sed "s@\(${ROOT}/\|\.md:title\)@@g" | sort
 }
 # }}}
@@ -65,7 +65,7 @@ function HELP() {
   -o, --open
         Open an existing note.\n
   -t, --title
-        Sort titles alphabetically.\n'
+        Sort titles alphabetically.\n\n'
 }
 # }}}
 
@@ -75,13 +75,13 @@ case "$1" in
   ;;
 -o | --open)
   cd "$ROOT" || exit 11
-  vim -c ':Ag'
+  nvim -c ':Telescope live_grep'
   ;;
 -g | --tag)
   SORT_TAGS_ALPHABETICALLY
   ;;
 -t | --title)
-  SORT_TITLES_ALPHABETICALLY
+  SORT_TITLES_CHRONOLOGICALLY
   ;;
 *)
   HELP
