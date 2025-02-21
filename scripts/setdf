@@ -1,5 +1,25 @@
 #!/usr/bin/env bash
 
+function ZSHENV() {
+	ACT="$1"
+	SRC="${HOME}/projects/reserved/program/zshenv/zshenv"
+	TGT="${HOME}/.zshenv"
+	case "$ACT" in
+		-i | --install)
+			if [ -f "$SRC" ]; then
+				if ! [ -L "$TGT" ]; then
+					ln -s "$SRC" "$TGT"
+				fi
+			fi
+			;;
+		-u | --uninstall)
+			if [ -L "$TGT" ]; then
+			       	unlink "$TGT"
+			fi
+			;;
+	esac
+}
+
 function SOURCE() {
   SRC1='reserved'
   SRC2='dotfiles'
@@ -60,6 +80,7 @@ function INSTALL() {
   [ -d "$TGT" ] && exit 2
   mkdir -p "$TGT"
   stow --restow --dir="$SRC" --target="$TGT" "$PKG"
+  [ "$PKG" == 'zsh' ] && ZSHENV --install
 }
 
 function UNINSTALL() {
@@ -69,12 +90,13 @@ function UNINSTALL() {
   [ -d "$TGT" ] || exit 3
   stow --delete --dir="$SRC" --target="$TGT" "$PKG"
   rm -rf "$TGT"
+  [ "$PKG" == 'zsh' ] && ZSHENV --uninstall
 }
 
 function AVAILABLE_DOTFILES() {
   printf 'There are dotfiles currently available for the following programs:\n
   \t- abook
-  \t- awessome
+  \t- awesome
   \t- alacritty
   \t- containers
   \t- git
