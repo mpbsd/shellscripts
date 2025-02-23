@@ -163,6 +163,9 @@ if [ "$#" -eq 2 ]; then
     tmux)
       INSTALL tmux
       ;;
+    vifm)
+      INSTALL vifm
+      ;;
     vim)
       INSTALL vim
       ;;
