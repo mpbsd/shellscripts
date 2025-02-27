@@ -214,6 +214,7 @@ declare -a TERMINAL=(
 # LATEX {{{
 declare -a LATEX=(
   texlive-full
+  kile
 )
 # }}}
 # IMAGE {{{
