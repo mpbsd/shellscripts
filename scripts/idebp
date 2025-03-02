@@ -69,6 +69,11 @@ declare -a TEXT_EDITORS=(
   vim-gtk3
 )
 # }}}
+# READING {{{
+declare -a READING=(
+  calibre
+)
+# }}}
 # C_DEVELOPMENT {{{
 declare -a C_DEVELOPMENT=(
   build-essential
@@ -267,6 +272,7 @@ declare -a ZSA_WALLY=(
 
 BUNDLES=( # {{{
   "${TEXT_EDITORS[@]}"
+  "${READING[@]}"
   "${C_DEVELOPMENT[@]}"
   "${LUA[@]}"
   "${NODE[@]}"
