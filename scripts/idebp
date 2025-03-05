@@ -180,6 +180,7 @@ declare -a COREUTILS=(
   jhead
   ledger
   lf
+  mpv
   ncdu
   nmap
   plocate
