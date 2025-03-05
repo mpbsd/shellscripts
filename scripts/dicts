@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# DICT {{{
+DICT=$(
+  cat <<EOF
+"D01: The Collaborative International Dictionary of English"
+"D02: WordNet"
+"D03: Moby Thesaurus II"
+"D04: Webster's Revised Unabridged Dictionary (1913)"
+"D05: Elements database"
+"D06: Virtual Entity of Relevant Acronyms"
+"D07: Jargon File"
+"D08: Free On-Line Dictionary of Computing"
+"D09: Easton's 1897 Bible Dictionary"
+"D10: Hitchcock's Bible Names Dictionary"
+"D11: Bouvier's Law Dictionary"
+"D12: THE DEVIL'S DICTIONARY"
+"D13: CIA World Factbook 2002"
+"D14: The CIA World Factbook (1995)"
+"D15: U.S. Gazetteer (1990)"
+"D16: U.S. Gazetteer Counties"
+"D17: U.S. Gazetteer Places"
+"D18: U.S. Gazetteer Zip Code Tabulation Areas"
+"D19: Longman Dictionary of Contemporary English"
+"D20: Oxford Advanced Learner's Dictionary"
+"D21: Collins Cobuild English Dictionary"
+"D22: Collins COBUILD Advanced Learner's Dictionary 2006"
+"D23: Oxford Collocations Dictionary"
+"D24: Merrian Webster 10th dictionary"
+"D25: The Britannica Concise Encyclopedia"
+"D26: English Thesaurus"
+"D27: CMU American English spelling"
+"D28: The CMU Pronouncing Dictionary"
+"D29: English irregular forms"
+"D30: English Etymology"
+"D31: Oxford English Collocation Dictionary"
+EOF
+)
+# }}}
+
+echo "$DICT" | fzf | sed 's/^"\(D[0-9]\{2\}\):.*$/\1/'
+
+exit 0
