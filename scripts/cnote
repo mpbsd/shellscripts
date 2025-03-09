@@ -96,6 +96,10 @@ function HELP() {
   \the/she can find the notes file to be edited based on strings from within
   \tthat file.
 
+  [-m|--make]
+
+  \tCompiles a draft version of the document.
+
   [-h|--help]
 
   Error codes:
