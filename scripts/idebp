@@ -178,6 +178,7 @@ declare -a COREUTILS=(
   fzf
   groff
   gtypist
+  htop
   hub
   jhead
   ledger
