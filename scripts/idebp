@@ -231,6 +231,7 @@ declare -a IMAGE=(
   # blender
   gimp
   inkscape
+  xournalpp
 )
 # }}}
 # BROWSER {{{
