@@ -96,6 +96,12 @@ declare -a NODE=(
   npm
 )
 # }}}
+# RUBY {{{
+declare -a RUBY=(
+  rbenv
+  ruby-build
+)
+# }}}
 # CONTAINERS {{{
 declare -a CONTAINERS=(
   podman
@@ -281,6 +287,7 @@ BUNDLES=( # {{{
   "${C_DEVELOPMENT[@]}"
   "${LUA[@]}"
   "${NODE[@]}"
+  "${RUBY[@]}"
   "${CONTAINERS[@]}"
   "${PYTHON_DEVELOPMENT[@]}"
   "${DATABASE[@]}"
