@@ -65,6 +65,7 @@ function HELP() {
 
 # TEXT_EDITORS {{{
 declare -a TEXT_EDITORS=(
+  nvi
   vim-nox
   vim-gtk3
 )
