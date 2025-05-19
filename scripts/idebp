@@ -179,6 +179,7 @@ declare -a BLOGGING=(
 declare -a COREUTILS=(
   9base
   bat
+  conky
   curl
   fd-find
   figlet
