@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# ZSHENV {{{
 function ZSHENV() {
   ACT="$1"
   SRC="${HOME}/projects/reserved/program/zshenv/zshenv"
@@ -19,7 +20,9 @@ function ZSHENV() {
     ;;
   esac
 }
+# }}}
 
+# SOURCE {{{
 function SOURCE() {
   SRC1='reserved'
   SRC2='dotfiles'
@@ -32,6 +35,7 @@ function SOURCE() {
   ORIG[mutt]="$SRC1"
   ORIG[alacritty]="$SRC2"
   ORIG[awesome]="$SRC2"
+  ORIG[conky]="$SRC2"
   ORIG[containers]="$SRC2"
   ORIG[kanata_cfg]="$SRC2"
   ORIG[kanata_ctl]="$SRC2"
@@ -48,7 +52,9 @@ function SOURCE() {
   PKG="$1"
   echo "${HOME}/projects/${ORIG[$PKG]}/program"
 }
+# }}}
 
+# TARGET {{{
 function TARGET() {
   declare -A DEST
 
@@ -56,8 +62,9 @@ function TARGET() {
   DEST[git]='.config/git'
   DEST[irssi]='.irssi'
   DEST[mutt]='.mutt'
-  DEST[awesome]='.config/awesome'
   DEST[alacritty]='.config/alacritty'
+  DEST[awesome]='.config/awesome'
+  DEST[conky]='.config/conky'
   DEST[containers]='.config/containers'
   DEST[kanata_cfg]='.config/kanata'
   DEST[kanata_ctl]='.config/systemd/user'
@@ -74,7 +81,9 @@ function TARGET() {
   PKG="$1"
   echo "${HOME}/${DEST[$PKG]}"
 }
+# }}}
 
+# INSTALL {{{
 function INSTALL() {
   PKG="$1"
   SRC=$(SOURCE "$PKG")
@@ -84,7 +93,9 @@ function INSTALL() {
   stow --restow --dir="$SRC" --target="$TGT" "$PKG"
   [ "$PKG" == 'zsh' ] && ZSHENV --install
 }
+# }}}
 
+# UNINSTALL {{{
 function UNINSTALL() {
   PKG="$1"
   SRC=$(SOURCE "$PKG")
@@ -94,12 +105,15 @@ function UNINSTALL() {
   rm -rf "$TGT"
   [ "$PKG" == 'zsh' ] && ZSHENV --uninstall
 }
+# }}}
 
+# AVAILABLE_DOTFILES {{{
 function AVAILABLE_DOTFILES() {
   printf 'There are dotfiles currently available for the following programs:\n
   \t- abook
-  \t- awesome
   \t- alacritty
+  \t- awesome
+  \t- conky
   \t- containers
   \t- git
   \t- irssi
@@ -115,11 +129,15 @@ function AVAILABLE_DOTFILES() {
   \t- zathura
   \t- zsh\n\n'
 }
+# }}}
 
+# HELP {{{
 function HELP() {
   echo 'Help message'
 }
+# }}}
 
+# Where all the magic actually happens {{{
 if [ "$#" -eq 2 ]; then
   ACT="$1"
   PKG="$2"
@@ -138,11 +156,14 @@ if [ "$#" -eq 2 ]; then
     mutt)
       INSTALL mutt
       ;;
+    alacritty)
+      INSTALL alacritty
+      ;;
     awesome)
       INSTALL awesome
       ;;
-    alacritty)
-      INSTALL alacritty
+    conky)
+      INSTALL conky
       ;;
     containers)
       INSTALL containers
@@ -183,8 +204,9 @@ if [ "$#" -eq 2 ]; then
       INSTALL git
       INSTALL irssi
       INSTALL mutt
-      INSTALL awesome
       INSTALL alacritty
+      INSTALL awesome
+      INSTALL conky
       INSTALL containers
       INSTALL kanata_cfg
       INSTALL kanata_ctl
@@ -217,11 +239,14 @@ if [ "$#" -eq 2 ]; then
     mutt)
       UNINSTALL mutt
       ;;
+    alacritty)
+      UNINSTALL alacritty
+      ;;
     awesome)
       UNINSTALL awesome
       ;;
-    alacritty)
-      UNINSTALL alacritty
+    conky)
+      UNINSTALL conky
       ;;
     containers)
       UNINSTALL containers
@@ -262,8 +287,9 @@ if [ "$#" -eq 2 ]; then
       UNINSTALL git
       UNINSTALL irssi
       UNINSTALL mutt
-      UNINSTALL awesome
       UNINSTALL alacritty
+      UNINSTALL awesome
+      UNINSTALL conky
       UNINSTALL containers
       UNINSTALL kanata_cfg
       UNINSTALL kanata_ctl
@@ -289,5 +315,6 @@ if [ "$#" -eq 2 ]; then
 else
   HELP
 fi
+# }}}
 
 exit 0
