@@ -282,6 +282,15 @@ declare -a ZSA_WALLY=(
   libusb-1.0-0-dev:amd64
 )
 # }}}
+# QMK {{{
+declare -a QMK=(
+  gcc-arm-none-eabi
+  gcc-avr
+  avrdude
+  dfu-programmer
+  dfu-util
+)
+# }}}
 
 BUNDLES=( # {{{
   "${TEXT_EDITORS[@]}"
@@ -309,6 +318,7 @@ BUNDLES=( # {{{
   "${AWESOME[@]}"
   "${NEOVIM[@]}"
   "${ZSA_WALLY[@]}"
+  "${QMK[@]}"
 )
 # }}}
 
