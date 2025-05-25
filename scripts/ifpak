@@ -3,16 +3,14 @@
 FLATPAK_REPO='https://flathub.org/repo/flathub.flatpakrepo'
 
 # BOOTSTRAP {{{
-function bootstrap() {
-  if dpkg -l | grep -qE '\<flatpak\>'
-  then
+function BOOTSTRAP() {
+  if dpkg -l | grep -qE '\<flatpak\>'; then
     echo "The 'flatpak' package is already installed."
   else
     echo "The 'flatpak' package is not installed."
     echo 'Do you want to install it? (y/N)'
     read -r ANSWER
-    if [ "${ANSWER}" = 'y' ]
-    then
+    if [ "${ANSWER}" = 'y' ]; then
       echo 'Proceeding with installation.'
       sudo apt install -y flatpak
       sudo flatpak remote-add --if-not-exists flathub "${FLATPAK_REPO}"
@@ -23,15 +21,13 @@ function bootstrap() {
 
 # INSTALL {{{
 function install() {
-  if flatpak list | grep -qE "\<${FLATPAK}\>"
-  then
+  if flatpak list | grep -qE "\<${FLATPAK}\>"; then
     echo "Found: ${FLATPAK}"
   else
     echo "Flatpak package ${FLATPAK} not found."
     echo 'Would you like to install it? (y/N)'
     read -r ANSWER
-    if [ "${ANSWER}" = 'y' ]
-    then
+    if [ "${ANSWER}" = 'y' ]; then
       echo 'Proceeding with package installation.'
       flatpak install "${FLATPAK}"
       echo 'Done.'
@@ -42,17 +38,15 @@ function install() {
 
 # FLATPAKS {{{
 declare -a FLATPAKS=(
-  com.brave.Browser
-  com.spotify.Client
+  # com.brave.Browser
+  # com.spotify.Client
   org.zotero.Zotero
-  com.google.AndroidStudio
 )
 # }}}
 
-bootstrap
+BOOTSTRAP
 
-for FLATPAK in "${FLATPAKS[@]}"
-do
+for FLATPAK in "${FLATPAKS[@]}"; do
   install "$FLATPAK"
 done
 
