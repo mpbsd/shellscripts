@@ -39,7 +39,7 @@ function install() {
 # FLATPAKS {{{
 declare -a FLATPAKS=(
   # com.brave.Browser
-  # com.spotify.Client
+  com.spotify.Client
   org.zotero.Zotero
 )
 # }}}
