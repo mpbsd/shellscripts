@@ -231,6 +231,7 @@ declare -a TERMINAL=(
 # LATEX {{{
 declare -a LATEX=(
   texlive-full
+  bibtool
   kile
 )
 # }}}
