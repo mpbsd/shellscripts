@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+set -e
+
+function PRESS_Q_TO_QUIT_OUT_OF_TMUX_NEW_WINDOW() {
+  B=1
+  while [ "$B" -eq 1 ]; do
+    read -n 1 -r KEY
+    if [ "$KEY" == 'q' ]; then
+      B=0
+    fi
+  done
+}
+
+function QUERY_LANG() {
+  LANG="$1"
+  QUERY="$(echo "$2" | tr ' ' '+')"
+  curl "cheat.sh/${LANG}/${QUERY}"
+}
+
+function QUERY_UTIL() {
+  UTIL="$1"
+  QUERY="$2"
+  curl "cheat.sh/${UTIL}~${QUERY}"
+}
+
+LANG=$(
+  cat <<EOF
+c
+lua
+python
+ruby
+EOF
+)
+
+UTIL=$(
+  cat <<EOF
+find
+sed
+xargs
+EOF
+)
+
+SELECT=$(printf '%s\n%s\n' "$LANG" "$UTIL" | fzf)
+echo "$SELECT"
+
+read -p "Query: " -r QUERY
+
+if echo "$LANG" | grep -qF "$SELECT"; then
+  QUERY_LANG "$SELECT" "$QUERY" &
+  PRESS_Q_TO_QUIT_OUT_OF_TMUX_NEW_WINDOW
+else
+  QUERY_UTIL "$SELECT" "$QUERY" &
+  PRESS_Q_TO_QUIT_OUT_OF_TMUX_NEW_WINDOW
+fi
+
+exit 0
