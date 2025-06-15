@@ -33,6 +33,7 @@ function SOURCE() {
   ORIG[git]="$SRC1"
   ORIG[irssi]="$SRC1"
   ORIG[mutt]="$SRC1"
+
   ORIG[alacritty]="$SRC2"
   ORIG[awesome]="$SRC2"
   ORIG[conky]="$SRC2"
@@ -43,6 +44,7 @@ function SOURCE() {
   ORIG[lf]="$SRC2"
   ORIG[newsboat]="$SRC2"
   ORIG[nvim]="$SRC2"
+  ORIG[rofi]="$SRC2"
   ORIG[tmux]="$SRC2"
   ORIG[vifm]="$SRC2"
   ORIG[vim]="$SRC2"
@@ -62,6 +64,7 @@ function TARGET() {
   DEST[git]='.config/git'
   DEST[irssi]='.irssi'
   DEST[mutt]='.mutt'
+
   DEST[alacritty]='.config/alacritty'
   DEST[awesome]='.config/awesome'
   DEST[conky]='.config/conky'
@@ -72,6 +75,7 @@ function TARGET() {
   DEST[lf]='.config/lf'
   DEST[newsboat]='.config/newsboat'
   DEST[nvim]='.config/nvim'
+  DEST[rofi]='.config/rofi'
   DEST[tmux]='.config/tmux'
   DEST[vifm]='.config/vifm'
   DEST[vim]='.vim'
@@ -123,6 +127,7 @@ function AVAILABLE_DOTFILES() {
   \t- lf
   \t- newsboat
   \t- nvim
+  \t- rofi
   \t- tmux
   \t- vifm
   \t- vim
@@ -184,6 +189,9 @@ if [ "$#" -eq 2 ]; then
     nvim)
       INSTALL nvim
       ;;
+    rofi)
+      INSTALL rofi
+      ;;
     tmux)
       INSTALL tmux
       ;;
@@ -214,6 +222,7 @@ if [ "$#" -eq 2 ]; then
       INSTALL lf
       INSTALL newsboat
       INSTALL nvim
+      INSTALL rofi
       INSTALL tmux
       INSTALL vifm
       INSTALL vim
@@ -267,6 +276,9 @@ if [ "$#" -eq 2 ]; then
     nvim)
       UNINSTALL nvim
       ;;
+    rofi)
+      UNINSTALL rofi
+      ;;
     tmux)
       UNINSTALL tmux
       ;;
@@ -297,6 +309,7 @@ if [ "$#" -eq 2 ]; then
       UNINSTALL lf
       UNINSTALL newsboat
       UNINSTALL nvim
+      UNINSTALL rofi
       UNINSTALL tmux
       UNINSTALL vifm
       UNINSTALL vim

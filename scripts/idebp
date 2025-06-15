@@ -198,6 +198,7 @@ declare -a COREUTILS=(
   qpdf
   redshift
   ripgrep
+  rofi
   sc
   scrot
   sdcv
