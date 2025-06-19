@@ -23,7 +23,7 @@ PROCNR_SEI_S0='\1_SEI_\2_PONTO_\3_BARRA_\4_TRACO_\5'
 
 PDFDOC_SIG_P0='.*Sistema Integrado de Gestão de Recursos Humanos.*\.pdf'
 
-M_P1='\(Janeiro\|Fevereiro\|Mar[çc]o\|Abril\|Maio\|Junho'
+M_P1='\(Janeiro\|Fevereiro\|Março\|Abril\|Maio\|Junho'
 M_P2='\|Julho\|Agosto\|Setembro\|Novembro\|Dezembro\)'
 M_P0=$(printf '%s%s' "$M_P1" "$M_P2")
 
