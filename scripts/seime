@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+set -e
+
+YEAR=$(date +'%Y')
+
+ORIG_SEI="${HOME}/downloads/conselho_diretor/${YEAR}"
+ORIG_SIG="${HOME}/downloads/ferias_servidores"
+
+DEST_SEI="${HOME}/projects/seime_teste/data/pdfs/sei"
+DEST_SIG="${HOME}/projects/seime_teste/data/pdfs/sig"
+
+DUMP_DIR="${HOME}/downloads/seime_tmp"
+
+PDFDOC_SEI_P1='\(0[1-9]\|1[0-2]\)'
+PDFDOC_SEI_P2='\/.*_Lista_de_Presen.a__com_direito_a_voz_e_voto_.*\.pdf'
+PDFDOC_SEI_P0=$(printf '%s%s' "$PDFDOC_SEI_P1" "$PDFDOC_SEI_P2")
+
+PROCNR_SEI_P1='\([0-9]\{7\}\)\s\+SEI\s\+'
+PROCNR_SEI_P2='\([0-9]\{5\}\)\.\([0-9]\{6\}\)\/\([0-9]\{4\}\)-\([0-9]\{2\}\)'
+PROCNR_SEI_P0=$(printf '%s%s' "$PROCNR_SEI_P1" "$PROCNR_SEI_P2")
+PROCNR_SEI_S0='\1_SEI_\2_PONTO_\3_BARRA_\4_TRACO_\5'
+
+PDFDOC_SIG_P0='.*Sistema Integrado de Gestão de Recursos Humanos.*\.pdf'
+
+M_P1='\(Janeiro\|Fevereiro\|Mar[çc]o\|Abril\|Maio\|Junho'
+M_P2='\|Julho\|Agosto\|Setembro\|Novembro\|Dezembro\)'
+M_P0=$(printf '%s%s' "$M_P1" "$M_P2")
+
+Y_P1='\([0-9]\{4\}\)'
+Y_P0="Período:\s\+${M_P0}\/${Y_P1}\s\+até\s\+${M_P0}\/${Y_P1}"
+Y_S0='\1_DE_\2_A_\3_DE_\4'
+
+[ -d "$ORIG_SEI" ] || exit 101
+[ -d "$ORIG_SIG" ] || exit 102
+[ -d "$DEST_SEI" ] || exit 103
+[ -d "$DEST_SIG" ] || exit 104
+
+find "$ORIG_SEI" \
+  -type f -regextype sed -regex "^${ORIG_SEI}/${PDFDOC_SEI_P0}$" |
+  while read -r PDFDOC; do
+    [ -d "$DUMP_DIR" ] && rm -rf "$DUMP_DIR"
+    mkdir -p "$DUMP_DIR"
+    cp "$PDFDOC" "${DUMP_DIR}/doc.pdf"
+    cd "$DUMP_DIR" || exit 105
+    gs -sDEVICE=txtwrite -o doc.txt doc.pdf >/dev/null
+    FILE=$(
+      sed -n "/${PROCNR_SEI_P0}/p" doc.txt |
+        tail -1 | sed "s/^.*${PROCNR_SEI_P0}.*$/${PROCNR_SEI_S0}/g"
+    )
+    cp doc.pdf "${DEST_SEI}/${FILE}.pdf"
+    rm -rf "$DUMP_DIR"
+  done
+
+find "$ORIG_SIG" \
+  -type f -regextype sed -regex "^${ORIG_SIG}/${PDFDOC_SIG_P0}$" |
+  while read -r PDFDOC; do
+    [ -d "$DUMP_DIR" ] && rm -rf "$DUMP_DIR"
+    mkdir -p "$DUMP_DIR"
+    cp "$PDFDOC" "${DUMP_DIR}/doc.pdf"
+    cd "$DUMP_DIR" || exit 105
+    gs -sDEVICE=txtwrite -o doc.txt doc.pdf >/dev/null
+    FILE=$(
+      sed -n "/${Y_P0}/p" doc.txt |
+        tail -1 | sed "s/^.*${Y_P0}.*$/${Y_S0}/g" | tr '[:lower:]' '[:upper:]'
+    )
+    cp doc.pdf "${DEST_SIG}/${FILE}.pdf"
+    rm -rf "$DUMP_DIR"
+  done
+
+exit 0
