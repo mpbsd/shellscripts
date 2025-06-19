@@ -3,31 +3,33 @@
 set -e
 
 WBROWSER='/usr/bin/chromium'
-DATABASE="${HOME}/downloads/bookmarks.json"
+DATABASE="${HOME}/.local/share/bookmarks/bookmarks.json"
 
 CATEGORY=$(
   jq '. | keys' <"$DATABASE" |
     sed -n '/^[^][]/p' |
     sed 's/[][", ]//g' |
-    rofi -dmenu
+    fzf
 )
 
 [ -n "$CATEGORY" ] || exit 101
 
 BOOKMARK=$(
-  JQ=".$CATEGORY | keys[] as \$k | \"\(\$k): \(.[\$k].dsc)\""
-  jq -r "$JQ" <"$DATABASE" |
+  jq '.'"$CATEGORY"' | keys[] as $k | "\($k): \(.[$k].dsc)"' <"$DATABASE" |
     sed -n '/^[^][]/p' |
     sed 's/[][", ]//g' |
-    rofi -dmenu | cut -d':' -f1
+    fzf |
+    cut -d':' -f1
 )
+
+[ -n "$BOOKMARK" ] || exit 102
 
 ADDRESS=$(
   JQ=$(printf '.%s["%s"]["url"]' "$CATEGORY" "$BOOKMARK")
   jq "$JQ" <"$DATABASE" | sed 's/"//g'
 )
 
-[ -n "$ADDRESS" ] || exit 102
+[ -n "$ADDRESS" ] || exit 103
 
 "$WBROWSER" "$ADDRESS" &
 

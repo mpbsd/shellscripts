@@ -30,6 +30,7 @@ function SOURCE() {
   declare -A ORIG
 
   ORIG[abook]="$SRC1"
+  ORIG[bread]="$SRC1"
   ORIG[git]="$SRC1"
   ORIG[irssi]="$SRC1"
   ORIG[mutt]="$SRC1"
@@ -61,6 +62,7 @@ function TARGET() {
   declare -A DEST
 
   DEST[abook]='.abook'
+  DEST[bread]='.local/share/bookmarks'
   DEST[git]='.config/git'
   DEST[irssi]='.irssi'
   DEST[mutt]='.mutt'
@@ -115,6 +117,7 @@ function UNINSTALL() {
 function AVAILABLE_DOTFILES() {
   printf 'There are dotfiles currently available for the following programs:\n
   \t- abook
+  \t- bread
   \t- alacritty
   \t- awesome
   \t- conky
@@ -151,6 +154,9 @@ if [ "$#" -eq 2 ]; then
     case "$PKG" in
     abook)
       INSTALL abook
+      ;;
+    bread)
+      INSTALL bread
       ;;
     git)
       INSTALL git
@@ -209,6 +215,7 @@ if [ "$#" -eq 2 ]; then
       ;;
     all)
       INSTALL abook
+      INSTALL bread
       INSTALL git
       INSTALL irssi
       INSTALL mutt
@@ -238,6 +245,9 @@ if [ "$#" -eq 2 ]; then
     case "$PKG" in
     abook)
       UNINSTALL abook
+      ;;
+    bread)
+      UNINSTALL bread
       ;;
     git)
       UNINSTALL git
@@ -296,6 +306,7 @@ if [ "$#" -eq 2 ]; then
       ;;
     all)
       UNINSTALL abook
+      UNINSTALL bread
       UNINSTALL git
       UNINSTALL irssi
       UNINSTALL mutt
