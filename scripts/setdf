@@ -62,7 +62,7 @@ function TARGET() {
   declare -A DEST
 
   DEST[abook]='.abook'
-  DEST[bread]='.local/share/browser_bookmarks'
+  DEST[bread]='.local/share/bookmarks'
   DEST[git]='.config/git'
   DEST[irssi]='.irssi'
   DEST[mutt]='.mutt'
