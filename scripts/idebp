@@ -206,6 +206,7 @@ declare -a COREUTILS=(
   thefuck
   tmux
   vifm
+  xdotool
   xinput
   zathura
   zathura-djvu

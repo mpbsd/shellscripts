@@ -1,8 +1,25 @@
 #!/usr/bin/env bash
-
+################################################################################
+# Author:                                                                      #
+#                                                                              #
+#   Marcelo Barboza <salve.barboza@pm.me>                                      #
+#                                                                              #
+# Dependencies:                                                                #
+#                                                                              #
+#   - jq                                                                       #
+#   - xdotool                                                                  #
+#                                                                              #
+# Purpose:                                                                     #
+#                                                                              #
+#   - Fuzzy find bookmarks                                                     #
+#                                                                              #
+# Last changed:                                                                #
+#                                                                              #
+#   Goiânia, 07 de junho de 2025                                               #
+#                                                                              #
+################################################################################
 set -e
 
-WBROWSER='/usr/bin/chromium'
 DATABASE="${HOME}/.local/share/browser_bookmarks/bookmarks.json"
 
 CATEGORY=$(
@@ -23,6 +40,6 @@ BOOKMARK=$(
 
 [ -n "$BOOKMARK" ] || exit 102
 
-"$WBROWSER" "$BOOKMARK" &
+xdotool type "$BOOKMARK"
 
 exit 0
