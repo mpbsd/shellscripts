@@ -20,26 +20,15 @@
 ################################################################################
 set -e
 
-DATABASE="${HOME}/.local/share/bookmarks/bookmarks.json"
+BROWSER='/usr/bin/chromium'
+DATABASE="${HOME}/.local/share/bookmarks/bookmarks.txt"
 
 CATEGORY=$(
-  jq -r '. | keys' <"$DATABASE" |
-    sed -n '/^[^][]/p' |
-    sed 's/[][", ]//g' |
-    rofi -dmenu -i
+  rofi -dmenu -i <"$DATABASE"
 )
 
 [ -n "$CATEGORY" ] || exit 101
 
-BOOKMARK=$(
-  jq -r '.'"$CATEGORY"' | keys[] as $k | "\(.[$k].url)"' <"$DATABASE" |
-    sed -n '/^[^][]/p' |
-    sed 's/[][", ]//g' |
-    rofi -dmenu -i
-)
-
-[ -n "$BOOKMARK" ] || exit 102
-
-xdotool type "$BOOKMARK"
+"$BROWSER" "$CATEGORY"
 
 exit 0
