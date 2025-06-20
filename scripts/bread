@@ -20,7 +20,7 @@
 ################################################################################
 set -e
 
-DATABASE="${HOME}/.local/share/browser_bookmarks/bookmarks.json"
+DATABASE="${HOME}/.local/share/bookmarks/bookmarks.json"
 
 CATEGORY=$(
   jq -r '. | keys' <"$DATABASE" |
