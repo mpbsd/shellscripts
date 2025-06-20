@@ -15,21 +15,14 @@ CATEGORY=$(
 [ -n "$CATEGORY" ] || exit 101
 
 BOOKMARK=$(
-  jq -r '.'"$CATEGORY"' | keys[] as $k | "\($k): \(.[$k].dsc)"' <"$DATABASE" |
+  jq -r '.'"$CATEGORY"' | keys[] as $k | "\(.[$k].url)"' <"$DATABASE" |
     sed -n '/^[^][]/p' |
     sed 's/[][", ]//g' |
-    rofi -dmenu |
-    cut -d':' -f1
+    rofi -dmenu
 )
 
 [ -n "$BOOKMARK" ] || exit 102
 
-ADDRESS=$(
-  jq -r '.'"$CATEGORY"'["'"$BOOKMARK"'"]["url"]' <"$DATABASE" | sed 's/"//g'
-)
-
-[ -n "$ADDRESS" ] || exit 103
-
-"$WBROWSER" "$ADDRESS" &
+"$WBROWSER" "$BOOKMARK" &
 
 exit 0
