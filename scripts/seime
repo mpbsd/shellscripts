@@ -2,15 +2,22 @@
 
 set -e
 
+GITHUB_REPO='https://github.com/mpbsd/seime'
+
 YEAR=$(date +'%Y')
 
-ORIG_SEI="${HOME}/downloads/conselho_diretor/${YEAR}"
-ORIG_SIG="${HOME}/downloads/ferias_servidores"
+LOCAL_DIR="${HOME}/documents/"
+SEIME_DIR="${HOME}/projects/seime_test"
 
-DEST_SEI="${HOME}/projects/seime_teste/data/pdfs/sei"
-DEST_SIG="${HOME}/projects/seime_teste/data/pdfs/sig"
+ORIG_STAFF="${HOME}/documents/staff.json"
 
-DUMP_DIR="${HOME}/downloads/seime_tmp"
+ORIG_PDF_SEI="${LOCAL_DIR}/conselho_diretor/${YEAR}"
+ORIG_PDF_SIG="${LOCAL_DIR}/ferias_servidores"
+
+DEST_PDF_SEI="${SEIME_DIR}/data/pdfs/sei"
+DEST_PDF_SIG="${SEIME_DIR}/data/pdfs/sig"
+
+DUMP_DIR="${LOCAL_DIR}/tmp"
 
 PDFDOC_SEI_P1='\(0[1-9]\|1[0-2]\)'
 PDFDOC_SEI_P2='\/.*_Lista_de_Presen.a__com_direito_a_voz_e_voto_.*\.pdf'
@@ -23,49 +30,139 @@ PROCNR_SEI_S0='\1_SEI_\2_PONTO_\3_BARRA_\4_TRACO_\5'
 
 PDFDOC_SIG_P0='.*Sistema Integrado de Gestão de Recursos Humanos.*\.pdf'
 
-M_P1='\(Janeiro\|Fevereiro\|Março\|Abril\|Maio\|Junho'
-M_P2='\|Julho\|Agosto\|Setembro\|Novembro\|Dezembro\)'
-M_P0=$(printf '%s%s' "$M_P1" "$M_P2")
+MONTH_P1='\(Janeiro\|Fevereiro\|Março\|Abril\|Maio\|Junho'
+MONTH_P2='\|Julho\|Agosto\|Setembro\|Novembro\|Dezembro\)'
+MONTH_P0=$(printf '%s%s' "$MONTH_P1" "$MONTH_P2")
 
-Y_P1='\([0-9]\{4\}\)'
-Y_P0="Período:\s\+${M_P0}\/${Y_P1}\s\+até\s\+${M_P0}\/${Y_P1}"
-Y_S0='\1_DE_\2_A_\3_DE_\4'
+YEAR_P1='\([0-9]\{4\}\)'
+YEAR_P0="Período:\s\+${MONTH_P0}\/${YEAR_P1}\s\+até\s\+${MONTH_P0}\/${YEAR_P1}"
+YEAR_S0='\1_DE_\2_A_\3_DE_\4'
 
-[ -d "$ORIG_SEI" ] || exit 101
-[ -d "$ORIG_SIG" ] || exit 102
-[ -d "$DEST_SEI" ] || exit 103
-[ -d "$DEST_SIG" ] || exit 104
+# HELP {{{
+function HELP() {
+  printf '
+  Uso: seime [opção]
 
-find "$ORIG_SEI" \
-  -type f -regextype sed -regex "^${ORIG_SEI}/${PDFDOC_SEI_P0}$" |
-  while read -r PDFDOC; do
-    [ -d "$DUMP_DIR" ] && rm -rf "$DUMP_DIR"
-    mkdir -p "$DUMP_DIR"
-    cp "$PDFDOC" "${DUMP_DIR}/doc.pdf"
-    cd "$DUMP_DIR" || exit 105
-    gs -sDEVICE=txtwrite -o doc.txt doc.pdf >/dev/null
-    FILE=$(
-      sed -n "/${PROCNR_SEI_P0}/p" doc.txt |
-        tail -1 | sed "s/^.*${PROCNR_SEI_P0}.*$/${PROCNR_SEI_S0}/g"
-    )
-    cp doc.pdf "${DEST_SEI}/${FILE}.pdf"
-    rm -rf "$DUMP_DIR"
-  done
+  \tShell script que produz uma planilha com as frequências dos servidores às
+  \treuniões do Conselho Diretor do IME.
 
-find "$ORIG_SIG" \
-  -type f -regextype sed -regex "^${ORIG_SIG}/${PDFDOC_SIG_P0}$" |
-  while read -r PDFDOC; do
-    [ -d "$DUMP_DIR" ] && rm -rf "$DUMP_DIR"
-    mkdir -p "$DUMP_DIR"
-    cp "$PDFDOC" "${DUMP_DIR}/doc.pdf"
-    cd "$DUMP_DIR" || exit 105
-    gs -sDEVICE=txtwrite -o doc.txt doc.pdf >/dev/null
-    FILE=$(
-      sed -n "/${Y_P0}/p" doc.txt |
-        tail -1 | sed "s/^.*${Y_P0}.*$/${Y_S0}/g" | tr '[:lower:]' '[:upper:]'
-    )
-    cp doc.pdf "${DEST_SIG}/${FILE}.pdf"
-    rm -rf "$DUMP_DIR"
-  done
+  Opções:
+
+  [-i|--install]
+
+  \tFaz o download do repositório '\''github.com/mpbsd/seime'\'' e instala as
+  \tbibliotecas necessárias (Python).
+
+  [-u|--update]
+
+  \tAtualiza o repositório para a versão mais recente disponível. Alem disso,
+  \tatualiza também as bibliotecas da linguagem Pyhont.
+
+  [-s|--spreadsheet]
+
+  \tGera uma planilha com as frequências dos servidores às treuniões do
+  \tConselho Diretor.
+
+  [-h|--help]
+
+  \tImprime esta mensagem.
+
+  Códigos de saída:
+
+  \t100: Tentativa de instalar um projeto já instalado
+  \t101: Tentativa frustrada de mudar para o diretório do projeto (install)
+  \t102: Tentativa de atualizar um projeto inexistente
+  \t103: Tentativa frustrada de mudar para o diretório do projeto (update 1)
+  \t104: Tentativa frustrada de mudar para o diretório do projeto (update 2)
+  \t105: Diretório fonte de PDFs inexistente (SEI!)
+  \t106: Diretório fonte de PDFs inexistente (SIGRH)
+  \t107: Tentativa de gerar os PDFs com o projeto ainda não esta instalado
+  \t108: Tentativa frustrada de mudar para o diretório do projeto (spreadsheet 1)
+  \t109: Tentativa frustrada de mudar para o diretório do projeto (spreadsheet 2)
+  \t110: Tentativa frustrada de mudar para o diretório do projeto (spreadsheet 3)
+  \t111: Tentativa de executar os scripts sem as bibliotecas necessárias\n\n'
+}
+# }}}
+
+if [ "$#" -eq 1 ]; then
+  case "$1" in
+  --install | -i)
+    [ -d "$SEIME_DIR" ] && exit 100
+    git clone "$GITHUB_REPO" "$SEIME_DIR"
+    rm -rf "${SEIME_DIR}/data/json/staff.json"
+    ln -s "$ORIG_STAFF" "${SEIME_DIR}/data/json/staff.json"
+    cd "$SEIME_DIR" || exit 101
+    make ready
+    ;;
+  --update | -u)
+    [ -d "$SEIME_DIR" ] || exit 102
+    cd "$SEIME_DIR" || exit 103
+    unlink "${SEIME_DIR}/data/json/staff.json"
+    git restore "${SEIME_DIR}/data/json/staff.json"
+    git pull origin main
+    rm -rf "${SEIME_DIR}/data/json/staff.json"
+    ln -s "$ORIG_STAFF" "${SEIME_DIR}/data/json/staff.json"
+    cd "$SEIME_DIR" || exit 104
+    [ -d venv ] && rm -rf venv
+    make ready
+    ;;
+  --spreadsheet | -s)
+    [ -d "$ORIG_PDF_SEI" ] || exit 105
+    [ -d "$ORIG_PDF_SIG" ] || exit 106
+    [ -d "$SEIME_DIR" ] || exit 107
+
+    [ -d "$DEST_PDF_SEI" ] || mkdir -p "$DEST_PDF_SEI"
+    [ -d "$DEST_PDF_SIG" ] || mkdir -p "$DEST_PDF_SIG"
+
+    find "$ORIG_PDF_SEI" \
+      -type f -regextype sed -regex "^${ORIG_PDF_SEI}/${PDFDOC_SEI_P0}$" |
+      while read -r PDFDOC; do
+        [ -d "$DUMP_DIR" ] && rm -rf "$DUMP_DIR"
+        mkdir -p "$DUMP_DIR"
+        cp "$PDFDOC" "${DUMP_DIR}/doc.pdf"
+        cd "$DUMP_DIR" || exit 108
+        gs -sDEVICE=txtwrite -o doc.txt doc.pdf >/dev/null
+        FILE=$(
+          sed -n "/${PROCNR_SEI_P0}/p" doc.txt |
+            tail -1 | sed "s/^.*${PROCNR_SEI_P0}.*$/${PROCNR_SEI_S0}/g"
+        )
+        cp doc.pdf "${DEST_PDF_SEI}/${FILE}.pdf"
+        rm -rf "$DUMP_DIR"
+      done
+
+    find "$ORIG_PDF_SIG" \
+      -type f -regextype sed -regex "^${ORIG_PDF_SIG}/${PDFDOC_SIG_P0}$" |
+      while read -r PDFDOC; do
+        [ -d "$DUMP_DIR" ] && rm -rf "$DUMP_DIR"
+        mkdir -p "$DUMP_DIR"
+        cp "$PDFDOC" "${DUMP_DIR}/doc.pdf"
+        cd "$DUMP_DIR" || exit 109
+        gs -sDEVICE=txtwrite -o doc.txt doc.pdf >/dev/null
+        FILE=$(
+          sed -n "/${YEAR_P0}/p" doc.txt |
+            tail -1 |
+            sed "s/^.*${YEAR_P0}.*$/${YEAR_S0}/g" |
+            tr '[:lower:]' '[:upper:]'
+        )
+        cp doc.pdf "${DEST_PDF_SIG}/${FILE}.pdf"
+        rm -rf "$DUMP_DIR"
+      done
+
+    cd "$SEIME_DIR" || exit 110
+    [ -d venv ] || exit 111
+    source venv/bin/activate
+    make
+    deactivate
+    ;;
+  --help | -h)
+    HELP
+    ;;
+  *)
+    HELP
+    ;;
+  esac
+else
+  HELP
+fi
 
 exit 0
