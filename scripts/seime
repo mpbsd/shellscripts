@@ -7,12 +7,12 @@ GITHUB_REPO='https://github.com/mpbsd/seime'
 YEAR=$(date +'%Y')
 
 LOCAL_DIR="${HOME}/documents/"
-SEIME_DIR="${HOME}/projects/seime_test"
+SEIME_DIR="${HOME}/projects/seime"
 
-ORIG_STAFF="${HOME}/documents/staff.json"
+ORIG_STAFF="${HOME}/documents/conselho_diretor/staff.json"
 
 ORIG_PDF_SEI="${LOCAL_DIR}/conselho_diretor/${YEAR}"
-ORIG_PDF_SIG="${LOCAL_DIR}/ferias_servidores"
+ORIG_PDF_SIG="${LOCAL_DIR}/conselho_diretor/ferias"
 
 DEST_PDF_SEI="${SEIME_DIR}/data/pdfs/sei"
 DEST_PDF_SIG="${SEIME_DIR}/data/pdfs/sig"
