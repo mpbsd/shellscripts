@@ -227,6 +227,7 @@ declare -a SHELL=(
 # }}}
 # TERMINAL {{{
 declare -a TERMINAL=(
+  cool-retro-term
   kitty
 )
 # }}}
