@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ADDRESS='https://github.com/ryanoasis/nerd-fonts/releases/download'
-VERSION='v3.3.0'
+VERSION='v3.4.0'
 
 FNTDIR="${HOME}/.local/share/fonts"
 TMPDIR="${HOME}/downloads/nerdfonts"
@@ -11,7 +11,7 @@ TMPDIR="${HOME}/downloads/nerdfonts"
 
 # AVAILABLE_FONTS {{{
 AVAILABLE_FONTS=$(
-cat << EOF
+  cat <<EOF
 0xProto
 3270
 Agave
@@ -86,8 +86,7 @@ EOF
 
 FONTNAME="$(echo "$AVAILABLE_FONTS" | fzf)"
 
-if [[ ! -d "${FNTDIR}/${FONTNAME}" ]]
-then
+if [[ ! -d "${FNTDIR}/${FONTNAME}" ]]; then
   mkdir -p "${FNTDIR}/${FONTNAME}"
   PKGONLINE="${ADDRESS}/${VERSION}/${FONTNAME}.tar.xz"
   PKGONDISK="${TMPDIR}/${FONTNAME}.tar.xz"
@@ -96,7 +95,7 @@ then
   rm -rf "${PKGONDISK}"
 fi
 
-find "${FNTDIR}" -type f -regextype sed -regex ".*\(LICENSE\|\.md\|\.txt\)$" -delete
+find "${FNTDIR}" -type f -regextype sed -regex "^.*\(LICENSE\|\.md\|\.txt\)$" -delete
 
 fc-cache -fv
 
