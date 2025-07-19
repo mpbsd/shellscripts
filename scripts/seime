@@ -28,7 +28,7 @@ PROCNR_SEI_P2='\([0-9]\{5\}\)\.\([0-9]\{6\}\)\/\([0-9]\{4\}\)-\([0-9]\{2\}\)'
 PROCNR_SEI_P0=$(printf '%s%s' "$PROCNR_SEI_P1" "$PROCNR_SEI_P2")
 PROCNR_SEI_S0='\1_SEI_\2_PONTO_\3_BARRA_\4_TRACO_\5'
 
-PDFDOC_SIG_P0='.*Sistema Integrado de Gestão de Recursos Humanos.*\.pdf'
+PDFDOC_SIG_P0='[0-9]\{4\}\.pdf'
 
 MONTH_P1='\(Janeiro\|Fevereiro\|Março\|Abril\|Maio\|Junho'
 MONTH_P2='\|Julho\|Agosto\|Setembro\|Novembro\|Dezembro\)'
