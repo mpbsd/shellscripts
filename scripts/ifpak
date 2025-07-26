@@ -41,6 +41,8 @@ declare -a FLATPAKS=(
   com.spotify.Client
   io.gitlab.librewolf-community
   org.zotero.Zotero
+  org.gnu.emacs
+  org.gramps_project.Gramps
 )
 # }}}
 
