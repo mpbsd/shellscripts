@@ -295,6 +295,18 @@ declare -a QMK=(
   dfu-util
 )
 # }}}
+# WIREGUARD {{{
+declare -a WIREGUARD=(
+  wireguard
+  resolvconf
+)
+# }}}
+# ANDROID {{{
+declare -a ANDROID=(
+  adb
+  fastboot
+)
+# }}}
 
 BUNDLES=( # {{{
   "${TEXT_EDITORS[@]}"
@@ -323,6 +335,8 @@ BUNDLES=( # {{{
   "${NEOVIM[@]}"
   "${ZSA_WALLY[@]}"
   "${QMK[@]}"
+  "${WIREGUARD[@]}"
+  "${ANDROID[@]}"
 )
 # }}}
 
