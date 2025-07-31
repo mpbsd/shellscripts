@@ -44,6 +44,7 @@ function SOURCE() {
   ORIG[kitty]="$SRC2"
   ORIG[lf]="$SRC2"
   ORIG[newsboat]="$SRC2"
+  ORIG[npm]="$SRC2"
   ORIG[nvim]="$SRC2"
   ORIG[rofi]="$SRC2"
   ORIG[tmux]="$SRC2"
@@ -76,6 +77,7 @@ function TARGET() {
   DEST[kitty]='.config/kitty'
   DEST[lf]='.config/lf'
   DEST[newsboat]='.config/newsboat'
+  DEST[npm]='.config/npm'
   DEST[nvim]='.config/nvim'
   DEST[rofi]='.config/rofi'
   DEST[tmux]='.config/tmux'
@@ -129,6 +131,7 @@ function AVAILABLE_DOTFILES() {
   \t- kitty
   \t- lf
   \t- newsboat
+  \t- npm
   \t- nvim
   \t- rofi
   \t- tmux
@@ -192,6 +195,9 @@ if [ "$#" -eq 2 ]; then
     newsboat)
       INSTALL newsboat
       ;;
+    npm)
+      INSTALL npm
+      ;;
     nvim)
       INSTALL nvim
       ;;
@@ -228,6 +234,7 @@ if [ "$#" -eq 2 ]; then
       INSTALL kitty
       INSTALL lf
       INSTALL newsboat
+      INSTALL npm
       INSTALL nvim
       INSTALL rofi
       INSTALL tmux
@@ -283,6 +290,9 @@ if [ "$#" -eq 2 ]; then
     newsboat)
       UNINSTALL newsboat
       ;;
+    npm)
+      UNINSTALL npm
+      ;;
     nvim)
       UNINSTALL nvim
       ;;
@@ -319,6 +329,7 @@ if [ "$#" -eq 2 ]; then
       UNINSTALL kitty
       UNINSTALL lf
       UNINSTALL newsboat
+      UNINSTALL npm
       UNINSTALL nvim
       UNINSTALL rofi
       UNINSTALL tmux
