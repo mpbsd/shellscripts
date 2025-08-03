@@ -167,6 +167,7 @@ declare -a SECURITY=(
   pass-otp
   signify-openbsd
   signify-openbsd-keys
+  ufw
 )
 # }}}
 # BLOGGING {{{
