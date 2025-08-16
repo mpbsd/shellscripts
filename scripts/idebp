@@ -4,6 +4,8 @@
 # date: 2025-01-22                                                            #
 ###############################################################################
 
+set -e
+
 # PKGADD {{{
 function PKGADD() {
   STATUS="$1"
@@ -63,44 +65,29 @@ function HELP() {
 }
 # }}}
 
-# TEXT_EDITORS {{{
-declare -a TEXT_EDITORS=(
-  nvi
-  vim-nox
-  vim-gtk3
-)
-# }}}
-# READING {{{
-declare -a READING=(
-  calibre
-)
-# }}}
-# C_DEVELOPMENT {{{
-declare -a C_DEVELOPMENT=(
+# DEVELOPMENT_IN_C {{{
+declare -a DEVELOPMENT_IN_C=(
   build-essential
   gdb
   glibc-doc
   universal-ctags
   valgrind
-  tcc
 )
 # }}}
-# LUA {{{
-declare -a LUA=(
-  lua5.1
-  luarocks
+# DEVELOPMENT_IN_PYTHON {{{
+declare -a DEVELOPMENT_IN_PYTHON=(
+  python3-venv
+  python3-pip
 )
 # }}}
-# NODE {{{
-declare -a NODE=(
-  nodejs
-  npm
-)
-# }}}
-# RUBY {{{
-declare -a RUBY=(
-  rbenv
-  ruby-build
+# DATABASES {{{
+declare -a DATABASES=(
+  mariadb-client
+  mariadb-server
+  postgresql
+  postgresql-client
+  sqlite3
+  sqlite3-doc
 )
 # }}}
 # CONTAINERS {{{
@@ -109,55 +96,22 @@ declare -a CONTAINERS=(
   podman-compose
 )
 # }}}
-# PYTHON_DEVELOPMENT {{{
-declare -a PYTHON_DEVELOPMENT=(
-  python3-venv
-  python3-pip
-)
-# }}}
-# DATABASE {{{
-declare -a DATABASE=(
-  mariadb-client
-  mariadb-server
-  postgresql
-  postgresql-client
-  sqlite3
-  sqlite3-doc
-  xapers
-)
-# }}}
-# MAIL_CHAT_AND_NEWS {{{
-declare -a MAIL_CHAT_AND_NEWS=(
+# MAIL_CHAT_NEWS_WEB {{{
+declare -a MAIL_CHAT_NEWS_WEB=(
   abook
   irssi
   mutt
   newsboat
-  telegram-desktop
   w3m
-)
-# }}}
-# SYSTEM_MAINTENANCE {{{
-declare -a SYSTEM_MAINTENANCE=(
-  aptitude
-  debconf-utils
-  deborphan
-  debsums
-  stow
 )
 # }}}
 # FUN_AND_GAMES {{{
 declare -a FUN_AND_GAMES=(
   bsdgames
   cowsay
+  figlet
   fortunes
-  hedgewars
   lolcat
-  stockfish
-)
-# }}}
-# FIRMWARE {{{
-declare -a FIRMWARE=(
-  firmware-realtek
 )
 # }}}
 # SECURITY {{{
@@ -176,59 +130,62 @@ declare -a BLOGGING=(
   lowdown
 )
 # }}}
-# COREUTILS {{{
-declare -a COREUTILS=(
-  9base
-  bat
-  conky
-  curl
-  fd-find
-  figlet
-  fzf
-  groff
-  gtypist
-  htop
-  hub
-  jhead
-  ledger
-  lf
-  mpv
-  ncdu
-  nmap
-  plocate
+# PDF_DOCUMENT_VIEWERS_AND_UTILS {{{
+declare -a PDF_DOCUMENT_VIEWERS_AND_UTILS=(
   qpdf
-  redshift
-  ripgrep
-  rofi
-  sc
-  scrot
-  sdcv
-  silversearcher-ag
-  thefuck
-  tmux
-  vifm
-  xdotool
-  xinput
   zathura
-  zathura-djvu
+  zathura-djvu:amd64
 )
 # }}}
-# SHELL {{{
-declare -a SHELL=(
-  dialog
-  shellcheck
-  shfmt
-  xonsh
-  xonsh-doc
+# FUZZY_FINDERS {{{
+declare -a FUZZY_FINDERS=(
+  fd-find
+  fzf
+  plocate
+  ripgrep
+  silversearcher-ag
+)
+# }}}
+# FILE_MANAGEMENT {{{
+declare -a FILE_MANAGEMENT=(
+  vifm
+)
+# }}}
+# MONEY {{{
+declare -a MONEY=(
+  ledger
+)
+# }}}
+# GIT_WRAPPER_FOR_REMOTE_REPOS {{{
+declare -a GIT_WRAPPER_FOR_REMOTE_REPOS=(
+  gh
+  tea-cli
+)
+# }}}
+# CLI_UTILS {{{
+declare -a CLI_UTILS=(
+  9base
+  mpv
+  redshift
+  sc-im
+  scrot
+  sdcv
+  stow
+  tmux
+  xdotool
+)
+# }}}
+# ZSH {{{
+declare -a ZSH=(
   zsh
   zsh-autosuggestions
   zsh-doc
   zsh-syntax-highlighting
 )
 # }}}
-# TERMINAL {{{
-declare -a TERMINAL=(
-  cool-retro-term
+# TERMINAL_CLIENT {{{
+declare -a TERMINAL_CLIENT=(
+  alacritty
   kitty
 )
 # }}}
@@ -236,13 +193,10 @@ declare -a TERMINAL=(
 declare -a LATEX=(
   texlive-full
   bibtool
-  kile
 )
 # }}}
 # IMAGE {{{
 declare -a IMAGE=(
-  # blender
-  gimp
   inkscape
   xournalpp
 )
@@ -253,23 +207,12 @@ declare -a BROWSER=(
   chromium-driver
 )
 # }}}
-# SUCKLESS_SOFTWARE {{{
-declare -a SUCKLESS_SOFTWARE=(
-  dwm
-  suckless-tools
-  stterm
-  surf
-  libx11-dev:amd64
-  libxft-dev:amd64
-  libxinerama-dev:amd64
-  libfreetype6-dev:amd64
-  libharfbuzz-dev:amd64
-)
-# }}}
 # AWESOME {{{
 declare -a AWESOME=(
   awesome
+  conky-all
   picom
+  suckless-tools
 )
 # }}}
 # NEOVIM {{{
@@ -279,65 +222,39 @@ declare -a NEOVIM=(
   cmake
   unzip
   curl
-  build-essential
 )
 # }}}
-# ZSA_WALLY {{{
-declare -a ZSA_WALLY=(
-  libusb-1.0-0-dev:amd64
-)
-# }}}
-# QMK {{{
-declare -a QMK=(
-  gcc-arm-none-eabi
-  gcc-avr
-  avrdude
-  dfu-programmer
-  dfu-util
-)
-# }}}
-# WIREGUARD {{{
-declare -a WIREGUARD=(
-  wireguard
-  resolvconf
-)
-# }}}
-# ANDROID {{{
-declare -a ANDROID=(
-  adb
-  fastboot
+# VIM {{{
+declare -a VIM=(
+  vim-nox
+  vim-gtk3
 )
 # }}}
 
-BUNDLES=( # {{{
-  "${TEXT_EDITORS[@]}"
-  "${READING[@]}"
-  "${C_DEVELOPMENT[@]}"
-  "${LUA[@]}"
-  "${NODE[@]}"
-  "${RUBY[@]}"
+# BUNDLES {{{
+BUNDLES=(
+  "${DEVELOPMENT_IN_C[@]}"
+  "${DEVELOPMENT_IN_PYTHON[@]}"
+  "${DATABASES[@]}"
   "${CONTAINERS[@]}"
-  "${PYTHON_DEVELOPMENT[@]}"
-  "${DATABASE[@]}"
-  "${MAIL_CHAT_AND_NEWS[@]}"
-  "${SYSTEM_MAINTENANCE[@]}"
+  "${MAIL_CHAT_NEWS_WEB[@]}"
   "${FUN_AND_GAMES[@]}"
-  "${FIRMWARE[@]}"
   "${SECURITY[@]}"
   "${BLOGGING[@]}"
-  "${COREUTILS[@]}"
-  "${SHELL[@]}"
-  "${TERMINAL[@]}"
+  "${PDF_DOCUMENT_VIEWERS_AND_UTILS[@]}"
+  "${FUZZY_FINDERS[@]}"
+  "${FILE_MANAGEMENT[@]}"
+  "${MONEY[@]}"
+  "${GIT_WRAPPER_FOR_REMOTE_REPOS[@]}"
+  "${CLI_UTILS[@]}"
+  "${ZSH[@]}"
+  "${TERMINAL_CLIENT[@]}"
   "${LATEX[@]}"
   "${IMAGE[@]}"
   "${BROWSER[@]}"
-  "${SUCKLESS_SOFTWARE[@]}"
   "${AWESOME[@]}"
   "${NEOVIM[@]}"
-  "${ZSA_WALLY[@]}"
-  "${QMK[@]}"
-  "${WIREGUARD[@]}"
-  "${ANDROID[@]}"
+  "${VIM[@]}"
 )
 # }}}
 
