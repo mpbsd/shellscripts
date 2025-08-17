@@ -109,6 +109,7 @@ declare -a MAIL_CHAT_NEWS_WEB=(
 declare -a FUN_AND_GAMES=(
   bsdgames
   cowsay
+  fastfetch
   figlet
   fortunes
   lolcat
