@@ -212,7 +212,15 @@ declare -a AWESOME=(
   awesome
   conky-all
   picom
-  suckless-tools
+)
+# }}}
+# SUCKLESS {{{
+declare -a SUCKLESS=(
+  libx11-dev:amd64
+  libxft-dev:amd64
+  libxinerama-dev:amd64
+  libharfbuzz-dev:amd64
+  libxrandr-dev:amd64
 )
 # }}}
 # NEOVIM {{{
@@ -253,6 +261,7 @@ BUNDLES=(
   "${IMAGE[@]}"
   "${BROWSER[@]}"
   "${AWESOME[@]}"
+  "${SUCKLESS[@]}"
   "${NEOVIM[@]}"
   "${VIM[@]}"
 )
