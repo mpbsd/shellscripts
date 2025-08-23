@@ -239,6 +239,12 @@ declare -a VIM=(
   vim-gtk3
 )
 # }}}
+# ANDROID {{{
+declare -a ANDROID=(
+  adb
+  fastboot
+)
+# }}}
 
 # BUNDLES {{{
 BUNDLES=(
@@ -265,6 +271,7 @@ BUNDLES=(
   "${SUCKLESS[@]}"
   "${NEOVIM[@]}"
   "${VIM[@]}"
+  "${ANDROID[@]}"
 )
 # }}}
 

@@ -26,7 +26,7 @@ CATEGORY=$(
   jq -r '. | keys' <"$DATABASE" |
     sed -n '/^[^][]/p' |
     sed 's/[][", ]//g' |
-    rofi -dmenu
+    dmenu -i
 )
 
 [ -n "$CATEGORY" ] || exit 101
@@ -35,7 +35,7 @@ BOOKMARK=$(
   jq -r '.'"$CATEGORY"' | keys[] as $k | "\(.[$k].url)"' <"$DATABASE" |
     sed -n '/^[^][]/p' |
     sed 's/[][", ]//g' |
-    rofi -dmenu
+    dmenu -i
 )
 
 [ -n "$BOOKMARK" ] || exit 102
