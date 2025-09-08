@@ -42,11 +42,8 @@ function SOURCE() {
   ORIG[kanata_cfg]="$SRC2"
   ORIG[kanata_ctl]="$SRC2"
   ORIG[kitty]="$SRC2"
-  ORIG[lf]="$SRC2"
   ORIG[newsboat]="$SRC2"
-  ORIG[npm]="$SRC2"
   ORIG[nvim]="$SRC2"
-  ORIG[rofi]="$SRC2"
   ORIG[tmux]="$SRC2"
   ORIG[vifm]="$SRC2"
   ORIG[vim]="$SRC2"
@@ -75,11 +72,8 @@ function TARGET() {
   DEST[kanata_cfg]='.config/kanata'
   DEST[kanata_ctl]='.config/systemd/user'
   DEST[kitty]='.config/kitty'
-  DEST[lf]='.config/lf'
   DEST[newsboat]='.config/newsboat'
-  DEST[npm]='.config/npm'
   DEST[nvim]='.config/nvim'
-  DEST[rofi]='.config/rofi'
   DEST[tmux]='.config/tmux'
   DEST[vifm]='.config/vifm'
   DEST[vim]='.vim'
@@ -129,11 +123,8 @@ function AVAILABLE_DOTFILES() {
   \t- mutt
   \t- kanata
   \t- kitty
-  \t- lf
   \t- newsboat
-  \t- npm
   \t- nvim
-  \t- rofi
   \t- tmux
   \t- vifm
   \t- vim
@@ -189,20 +180,11 @@ if [ "$#" -eq 2 ]; then
     kitty)
       INSTALL kitty
       ;;
-    lf)
-      INSTALL lf
-      ;;
     newsboat)
       INSTALL newsboat
       ;;
-    npm)
-      INSTALL npm
-      ;;
     nvim)
       INSTALL nvim
-      ;;
-    rofi)
-      INSTALL rofi
       ;;
     tmux)
       INSTALL tmux
@@ -232,11 +214,8 @@ if [ "$#" -eq 2 ]; then
       INSTALL kanata_cfg
       INSTALL kanata_ctl
       INSTALL kitty
-      INSTALL lf
       INSTALL newsboat
-      INSTALL npm
       INSTALL nvim
-      INSTALL rofi
       INSTALL tmux
       INSTALL vifm
       INSTALL vim
@@ -284,20 +263,11 @@ if [ "$#" -eq 2 ]; then
     kitty)
       UNINSTALL kitty
       ;;
-    lf)
-      UNINSTALL lf
-      ;;
     newsboat)
       UNINSTALL newsboat
       ;;
-    npm)
-      UNINSTALL npm
-      ;;
     nvim)
       UNINSTALL nvim
-      ;;
-    rofi)
-      UNINSTALL rofi
       ;;
     tmux)
       UNINSTALL tmux
@@ -327,11 +297,8 @@ if [ "$#" -eq 2 ]; then
       UNINSTALL kanata_cfg
       UNINSTALL kanata_ctl
       UNINSTALL kitty
-      UNINSTALL lf
       UNINSTALL newsboat
-      UNINSTALL npm
       UNINSTALL nvim
-      UNINSTALL rofi
       UNINSTALL tmux
       UNINSTALL vifm
       UNINSTALL vim
