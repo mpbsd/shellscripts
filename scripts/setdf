@@ -10,12 +10,14 @@ function ZSHENV() {
     if [ -f "$SRC" ]; then
       if ! [ -L "$TGT" ]; then
         ln -s "$SRC" "$TGT"
+        mkdir -p "${HOME}/.cache/zsh"
       fi
     fi
     ;;
   -u | --uninstall)
     if [ -L "$TGT" ]; then
       unlink "$TGT"
+      [ -d "${HOME}/.cache/zsh" ] && rm -rf "${HOME}/.cache/zsh"
     fi
     ;;
   esac
