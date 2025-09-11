@@ -166,6 +166,7 @@ declare -a GIT_WRAPPER_FOR_REMOTE_REPOS=(
 # CLI_UTILS {{{
 declare -a CLI_UTILS=(
   9base
+  jq
   mpv
   redshift
   sc-im
