@@ -200,6 +200,7 @@ declare -a LATEX=(
 # }}}
 # IMAGE {{{
 declare -a IMAGE=(
+  gimp
   inkscape
   xournalpp
 )
