@@ -188,6 +188,7 @@ declare -a ZSH=(
 # TERMINAL_CLIENT {{{
 declare -a TERMINAL_CLIENT=(
   alacritty
+  cool-retro-term
   kitty
 )
 # }}}
