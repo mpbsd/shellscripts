@@ -59,8 +59,8 @@ function CREATE() {
   N=$(printf '%03d' "$((M + 1))")
   TGT_JSON_FILE="${DEST}/${N}.json"
   TGT_TEX_FILE="${DEST}/${N}.tex"
-  # vim -O "$TGT_JSON_FILE" "$TGT_TEX_FILE"
-  nvim -O "$TGT_JSON_FILE" "$TGT_TEX_FILE"
+  vim -O "$TGT_JSON_FILE" "$TGT_TEX_FILE"
+  # nvim -O "$TGT_JSON_FILE" "$TGT_TEX_FILE"
   find "$DEST" -type f -name '*.tex' | sort | tail -2 | sed "s@${DEST}/\([0-9]\{3\}\)\.tex@\\\\input{tex/${CODE}/\1}@" >"$LTEX"
 }
 # }}}
@@ -70,8 +70,8 @@ function EDIT() {
   [[ -d "$DEST" ]] || exit 13
   [[ -n "$(find "$DEST" -type f -name '*.tex')" ]] || exit 14
   cd "$DEST" || exit 15
-  # vim -c 'Ag'
-  nvim -c 'Telescope find_files'
+  vim -c 'Ag'
+  # nvim -c 'Telescope find_files'
 }
 # }}}
 
