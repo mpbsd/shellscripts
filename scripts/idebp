@@ -168,6 +168,7 @@ declare -a CLI_UTILS=(
   9base
   jq
   mpv
+  nmap
   redshift
   sc-im
   scrot
