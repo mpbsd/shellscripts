@@ -78,7 +78,7 @@ function TARGET() {
   DEST[nvim]='.config/nvim'
   DEST[tmux]='.config/tmux'
   DEST[vifm]='.config/vifm'
-  DEST[vim]='.vim'
+  DEST[vim]='.config/vim'
   DEST[zathura]='.config/zathura'
   DEST[zsh]='.config/zsh'
 
