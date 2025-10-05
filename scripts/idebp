@@ -196,6 +196,7 @@ declare -a TERMINAL_CLIENT=(
 # LATEX {{{
 declare -a LATEX=(
   texlive-full
+  texworks
   bibtool
 )
 # }}}
