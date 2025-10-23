@@ -50,9 +50,9 @@ fi
 gpg --verify "$SGN" "$SUM"
 sha512sum -c --ignore-missing "$SUM"
 
-echo -n 'Do you want to create an installation media for debian 12 amd64? '
-echo -n "All data on the target USB device $TGT will be destroyed. "
-echo -n '(y/N) '
+echo -n "Do you want to create an installation media for debian $VER amd64?"
+echo -n " All data on the target USB device $TGT will be destroyed."
+echo -n ' (y/N) '
 read -r ANSWER
 
 if [[ "$ANSWER" = 'y' ]]; then
