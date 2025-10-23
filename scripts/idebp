@@ -161,6 +161,7 @@ declare -a MONEY=(
 declare -a GIT_WRAPPER_FOR_REMOTE_REPOS=(
   gh
   tea-cli
+  lazygit
 )
 # }}}
 # CLI_UTILS {{{
