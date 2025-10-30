@@ -19,8 +19,8 @@ DEST_PDF_SIG="${SEIME_DIR}/data/pdfs/sig"
 
 DUMP_DIR="${LOCAL_DIR}/tmp"
 
-PDFDOC_SEI_P1='\(0[1-9]\|1[0-2]\)'
-PDFDOC_SEI_P2='\/.*_Lista_de_Presen.a__com_direito_a_voz_e_voto_.*\.pdf'
+PDFDOC_SEI_P1='SEI_[0-9]\{7\}'
+PDFDOC_SEI_P2='_Lista_de_Presen.a__com_direito_a_voz_e_voto_.*\.pdf'
 PDFDOC_SEI_P0=$(printf '%s%s' "$PDFDOC_SEI_P1" "$PDFDOC_SEI_P2")
 
 PROCNR_SEI_P1='\([0-9]\{7\}\)\s\+SEI\s\+'
