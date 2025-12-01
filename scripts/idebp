@@ -221,6 +221,15 @@ declare -a AWESOME=(
   picom
 )
 # }}}
+# WINDOWMAKER {{{
+declare -a WINDOWMAKER=(
+  wmaker
+  wmclockmon
+  wmcpuload
+  wmmemload
+  wmnd
+)
+# }}}
 # SUCKLESS {{{
 declare -a SUCKLESS=(
   libx11-dev:amd64
@@ -274,6 +283,7 @@ BUNDLES=(
   "${IMAGE[@]}"
   "${BROWSER[@]}"
   "${AWESOME[@]}"
+  "${WINDOWMAKER[@]}"
   "${SUCKLESS[@]}"
   "${NEOVIM[@]}"
   "${VIM[@]}"
