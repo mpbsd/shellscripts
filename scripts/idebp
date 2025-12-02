@@ -226,6 +226,7 @@ declare -a WINDOWMAKER=(
   wmaker
   wmclockmon
   wmcpuload
+  wmfsm
   wmmemload
   wmnd
 )
