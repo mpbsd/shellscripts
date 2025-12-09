@@ -255,6 +255,11 @@ declare -a VIM=(
   vim-gtk3
 )
 # }}}
+# EMACS {{{
+declare -a EMACS=(
+  emacs
+)
+# }}}
 # ANDROID {{{
 declare -a ANDROID=(
   adb
@@ -288,6 +293,7 @@ BUNDLES=(
   "${SUCKLESS[@]}"
   "${NEOVIM[@]}"
   "${VIM[@]}"
+  "${EMACS[@]}"
   "${ANDROID[@]}"
 )
 # }}}
