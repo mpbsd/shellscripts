@@ -41,6 +41,7 @@ function SOURCE() {
   ORIG[awesome]="$SRC2"
   ORIG[conky]="$SRC2"
   ORIG[containers]="$SRC2"
+  ORIG[emacs]="$SRC2"
   ORIG[kanata_cfg]="$SRC2"
   ORIG[kanata_ctl]="$SRC2"
   ORIG[kitty]="$SRC2"
@@ -71,6 +72,7 @@ function TARGET() {
   DEST[awesome]='.config/awesome'
   DEST[conky]='.config/conky'
   DEST[containers]='.config/containers'
+  DEST[emacs]='.config/emacs'
   DEST[kanata_cfg]='.config/kanata'
   DEST[kanata_ctl]='.config/systemd/user'
   DEST[kitty]='.config/kitty'
@@ -111,20 +113,18 @@ function UNINSTALL() {
 }
 # }}}
 
-# AVAILABLE_DOTFILES {{{
-function AVAILABLE_DOTFILES() {
-  printf 'There are dotfiles currently available for the following programs:\n
   \t- abook
-  \t- bread
   \t- alacritty
   \t- awesome
+  \t- bread
   \t- conky
   \t- containers
+  \t- emacs
   \t- git
   \t- irssi
-  \t- mutt
   \t- kanata
   \t- kitty
+  \t- mutt
   \t- newsboat
   \t- nvim
   \t- tmux
@@ -132,8 +132,11 @@ function AVAILABLE_DOTFILES() {
   \t- vim
   \t- zathura
   \t- zsh\n\n'
-}
+  printf 'There are dotfiles currently available for the following programs:\n
+# AVAILABLE_DOTFILES {{{
 # }}}
+function AVAILABLE_DOTFILES() {
+}
 
 # HELP {{{
 function HELP() {
@@ -175,6 +178,9 @@ if [ "$#" -eq 2 ]; then
     containers)
       INSTALL containers
       ;;
+    emacs)
+      INSTALL emacs
+      ;;
     kanata)
       INSTALL kanata_cfg
       INSTALL kanata_ctl
@@ -205,17 +211,18 @@ if [ "$#" -eq 2 ]; then
       ;;
     all)
       INSTALL abook
-      INSTALL bread
-      INSTALL git
-      INSTALL irssi
-      INSTALL mutt
       INSTALL alacritty
       INSTALL awesome
+      INSTALL bread
       INSTALL conky
       INSTALL containers
+      INSTALL emacs
+      INSTALL git
+      INSTALL irssi
       INSTALL kanata_cfg
       INSTALL kanata_ctl
       INSTALL kitty
+      INSTALL mutt
       INSTALL newsboat
       INSTALL nvim
       INSTALL tmux
@@ -258,6 +265,9 @@ if [ "$#" -eq 2 ]; then
     containers)
       UNINSTALL containers
       ;;
+    emacs)
+      UNINSTALL emacs
+      ;;
     kanata)
       UNINSTALL kanata_cfg
       UNINSTALL kanata_ctl
@@ -288,17 +298,18 @@ if [ "$#" -eq 2 ]; then
       ;;
     all)
       UNINSTALL abook
-      UNINSTALL bread
-      UNINSTALL git
-      UNINSTALL irssi
-      UNINSTALL mutt
       UNINSTALL alacritty
       UNINSTALL awesome
+      UNINSTALL bread
       UNINSTALL conky
       UNINSTALL containers
+      UNINSTALL emacs
+      UNINSTALL git
+      UNINSTALL irssi
       UNINSTALL kanata_cfg
       UNINSTALL kanata_ctl
       UNINSTALL kitty
+      UNINSTALL mutt
       UNINSTALL newsboat
       UNINSTALL nvim
       UNINSTALL tmux

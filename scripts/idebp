@@ -255,6 +255,11 @@ declare -a VIM=(
   vim-gtk3
 )
 # }}}
+# EMACS {{{
+declare -a EMACS=(
+  emacs
+)
+# }}}
 # ANDROID {{{
 declare -a ANDROID=(
   adb
@@ -288,6 +293,7 @@ BUNDLES=(
   "${SUCKLESS[@]}"
   "${NEOVIM[@]}"
   "${VIM[@]}"
+  "${EMACS[@]}"
   "${ANDROID[@]}"
 )
 # }}}
@@ -295,19 +301,19 @@ BUNDLES=(
 # INSTALLING BUNDLES {{{
 if [[ "$#" -eq 1 ]]; then
   case "$1" in
-  -a | --install-all-packages-in-a-new-debian-system)
-    for BUNDLE in "${BUNDLES[@]}"; do
-      PKGADD --install-all-packages-in-a-new-debian-system "$BUNDLE"
-    done
-    ;;
-  -i | --install-missing-packages)
-    for BUNDLE in "${BUNDLES[@]}"; do
-      PKGADD --install-missing-packages "$BUNDLE"
-    done
-    ;;
-  *)
-    HELP
-    ;;
+    -a | --install-all-packages-in-a-new-debian-system)
+      for BUNDLE in "${BUNDLES[@]}"; do
+        PKGADD --install-all-packages-in-a-new-debian-system "$BUNDLE"
+      done
+      ;;
+    -i | --install-missing-packages)
+      for BUNDLE in "${BUNDLES[@]}"; do
+        PKGADD --install-missing-packages "$BUNDLE"
+      done
+      ;;
+    *)
+      HELP
+      ;;
   esac
 else
   HELP
