@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# ZSHENV {{{
-function ZSHENV() {
+function ZSHENV() {  # {{{
   ACT="$1"
   SRC="${HOME}/projects/reserved/program/zshenv/zshenv"
   TGT="${HOME}/.zshenv"
@@ -21,11 +20,9 @@ function ZSHENV() {
     fi
     ;;
   esac
-}
-# }}}
+}  # }}}
 
-# SOURCE {{{
-function SOURCE() {
+function SOURCE() {  # {{{
   SRC1='reserved'
   SRC2='dotfiles'
 
@@ -55,11 +52,9 @@ function SOURCE() {
 
   PKG="$1"
   echo "${HOME}/projects/${ORIG[$PKG]}/program"
-}
-# }}}
+}  # }}}
 
-# TARGET {{{
-function TARGET() {
+function TARGET() {  # {{{
   declare -A DEST
 
   DEST[abook]='.abook'
@@ -86,11 +81,9 @@ function TARGET() {
 
   PKG="$1"
   echo "${HOME}/${DEST[$PKG]}"
-}
-# }}}
+}  # }}}
 
-# INSTALL {{{
-function INSTALL() {
+function INSTALL() {  # {{{
   PKG="$1"
   SRC=$(SOURCE "$PKG")
   TGT=$(TARGET "$PKG")
@@ -98,11 +91,9 @@ function INSTALL() {
   mkdir -p "$TGT"
   stow --restow --dir="$SRC" --target="$TGT" "$PKG"
   [ "$PKG" == 'zsh' ] && ZSHENV --install
-}
-# }}}
+}  # }}}
 
-# UNINSTALL {{{
-function UNINSTALL() {
+function UNINSTALL() {  # {{{
   PKG="$1"
   SRC=$(SOURCE "$PKG")
   TGT=$(TARGET "$PKG")
@@ -110,9 +101,11 @@ function UNINSTALL() {
   stow --delete --dir="$SRC" --target="$TGT" "$PKG"
   rm -rf "$TGT"
   [ "$PKG" == 'zsh' ] && ZSHENV --uninstall
-}
-# }}}
+}  # }}}
 
+# AVAILABLE_DOTFILES {{{
+function AVAILABLE_DOTFILES() {
+  printf 'There are dotfiles currently available for the following programs:\n
   \t- abook
   \t- alacritty
   \t- awesome
@@ -132,17 +125,11 @@ function UNINSTALL() {
   \t- vim
   \t- zathura
   \t- zsh\n\n'
-  printf 'There are dotfiles currently available for the following programs:\n
-# AVAILABLE_DOTFILES {{{
-# }}}
-function AVAILABLE_DOTFILES() {
-}
+}  # }}}
 
-# HELP {{{
-function HELP() {
+function HELP() {  # {{{
   echo 'Help message'
-}
-# }}}
+}  # }}}
 
 # Where all the magic actually happens {{{
 if [ "$#" -eq 2 ]; then
