@@ -108,6 +108,7 @@ declare -a MAIL_CHAT_NEWS_WEB=(
 # FUN_AND_GAMES {{{
 declare -a FUN_AND_GAMES=(
   bsdgames
+  cmatrix
   cowsay
   fastfetch
   figlet
