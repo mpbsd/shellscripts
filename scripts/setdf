@@ -57,11 +57,11 @@ function SOURCE() {  # {{{
 function TARGET() {  # {{{
   declare -A DEST
 
-  DEST[abook]='.abook'
+  DEST[abook]='.config/abook'
   DEST[bread]='.local/share/bookmarks'
   DEST[git]='.config/git'
-  DEST[irssi]='.irssi'
-  DEST[mutt]='.mutt'
+  DEST[irssi]='.config/irssi'
+  DEST[mutt]='.config/mutt'
 
   DEST[alacritty]='.config/alacritty'
   DEST[awesome]='.config/awesome'
