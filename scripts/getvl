@@ -8,52 +8,51 @@
 #                                                                              #
 #   - bash                                                                     #
 #   - dd                                                                       #
-#   - gpg                                                                      #
-#   - grep                                                                     #
-#   - sha512sum                                                                #
+#   - minisign                                                                 #
+#   - sha256sum                                                                #
 #   - wget                                                                     #
 #                                                                              #
 # Purpose:                                                                     #
 #                                                                              #
-#   - Download amd64-netinst.iso from https://debian.org                       #
+#   - Download void-live-x86_64-{version}-xfce.iso from voidlinux.org          #
 #   - Verify both the authenticity and the integrity of the downloaded iso     #
 #   - Create an USB installation media (target device defaults to /dev/sdb)    #
 #                                                                              #
 # Last changed:                                                                #
 #                                                                              #
-#   Goiânia, 02 de fevereiro de 2025                                           #
+#   Goiânia, 30 de dezembro de 2025                                            #
 #                                                                              #
 ################################################################################
 
-URL='https://cdimage.debian.org/debian-cd/current/amd64/iso-cd'
-VER='13.0.0'
-ISO="debian-${VER}-amd64-netinst.iso"
-SUM='SHA512SUMS'
-SGN='SHA512SUMS.sign'
-DIR="${HOME}/downloads/debian"
+URL='https://repo-default.voidlinux.org/live/current'
+GHR='https://github.com/void-linux/void-packages/blob/master/srcpkgs/void-release-keys/files'
+VRS='20250202'
+ISO="void-live-x86_64-${VRS}-xfce.iso"
+PGP='sha256sum.sig'
+SHA="sha256sum.txt"
+PUB="void-release-${VRS}.pub"
+DIR="${HOME}/downloads/voidlinux"
 TGT='/dev/sdb'
 
-[[ -d "$DIR"         ]]  || mkdir -p "$DIR"                || exit 10
-[[ "$(pwd)" = "$DIR" ]]  || cd "$DIR"                      || exit 11
-[[ -f "$SUM"         ]]  || wget "${URL}/${SUM}" -O "$SUM" || exit 12
-[[ -f "$SGN"         ]]  || wget "${URL}/${SGN}" -O "$SGN" || exit 13
-[[ -f "$ISO"         ]]  || wget "${URL}/${ISO}" -O "$ISO" || exit 14
+[[ -d "$DIR"         ]] || mkdir -p "$DIR"                       || exit 10
+[[ "$(pwd)" = "$DIR" ]] || cd "$DIR"                             || exit 11
+[[ -f "$ISO"         ]] || wget "${URL}/$ISO" -O "${DIR}/${ISO}" || exit 12
+[[ -f "$PGP"         ]] || wget "${URL}/$PGP" -O "${DIR}/${PGP}" || exit 13
+[[ -f "$SHA"         ]] || wget "${URL}/$SHA" -O "${DIR}/${SHA}" || exit 14
+[[ -f "$PUB"         ]] || wget "${GHR}/$PUB" -O "${DIR}/${PUB}" || exit 15
 
-if ! gpg -k | grep -qF 'rsa4096/0x988021A964E6EA7D'; then
-  gpg --keyserver keyring.debian.org --recv-keys 988021A964E6EA7D
-fi
+echo 'Verifying the signature:'
+minisign -V -p "$PUB" -x sha256sum.sig -m sha256sum.txt
 
-if ! gpg -k | grep -qF 'rsa4096/0xDA87E80D6294BE9B'; then
-  gpg --keyserver keyring.debian.org --recv-keys DA87E80D6294BE9B
-fi
+echo 'Verifying the integrity:'
+sha256sum -c --ignore-missing sha256sum.txt
 
-gpg --verify "$SGN" "$SUM"
-sha512sum -c --ignore-missing "$SUM"
-
-echo -n "Do you want to create an installation media for debian $VER amd64?"
-echo -n " All data on the target USB device $TGT will be destroyed."
-echo -n ' (y/N) '
+echo -n 'Do you want to create an installation media for voidlinux? '
+echo -n "All data on the target USB device $TGT will be destroyed. "
+echo -n '(y/N) '
 read -r ANSWER
+
+echo "$ANSWER"
 
 if [[ "$ANSWER" = 'y' ]]; then
   sudo dd if="$ISO" of="$TGT" bs=16M status=progress oflag=sync

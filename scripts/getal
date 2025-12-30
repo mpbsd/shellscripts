@@ -15,7 +15,7 @@
 #                                                                              #
 # Purpose:                                                                     #
 #                                                                              #
-#   - Download archlinux-x86_64.iso from archlinux                             #
+#   - Download archlinux-x86_64.iso from https://archlinux.org                 #
 #   - Verify both the authenticity and the integrity of the downloaded iso     #
 #   - Create an USB installation media (target device defaults to /dev/sdb)    #
 #                                                                              #
@@ -26,7 +26,7 @@
 ################################################################################
 
 URL='https://archlinux.c3sl.ufpr.br/iso'
-VRS='2025.10.01'
+VRS='2025.12.01'
 ISO="archlinux-${VRS}-x86_64.iso"
 PGP="archlinux-${VRS}-x86_64.iso.sig"
 SHA="sha256sums.txt"

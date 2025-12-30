@@ -119,6 +119,7 @@ declare -a FUN_AND_GAMES=(
 # SECURITY {{{
 declare -a SECURITY=(
   keychain
+  minisign
   pass
   pass-otp
   signify-openbsd

@@ -28,7 +28,7 @@ function SOURCE() {  # {{{
 
   declare -A ORIG
 
-  ORIG[abook]="$SRC1"
+  ORIG[abookrc]="$SRC1"
   ORIG[bread]="$SRC1"
   ORIG[git]="$SRC1"
   ORIG[irssi]="$SRC1"
@@ -57,7 +57,7 @@ function SOURCE() {  # {{{
 function TARGET() {  # {{{
   declare -A DEST
 
-  DEST[abook]='.config/abook'
+  DEST[abookrc]='.config/abook'
   DEST[bread]='.local/share/bookmarks'
   DEST[git]='.config/git'
   DEST[irssi]='.config/irssi'
@@ -139,7 +139,7 @@ if [ "$#" -eq 2 ]; then
   -i | --install)
     case "$PKG" in
     abook)
-      INSTALL abook
+      INSTALL abookrc
       ;;
     bread)
       INSTALL bread
@@ -197,7 +197,7 @@ if [ "$#" -eq 2 ]; then
       INSTALL zsh
       ;;
     all)
-      INSTALL abook
+      INSTALL abookrc
       INSTALL alacritty
       INSTALL awesome
       INSTALL bread
@@ -226,7 +226,7 @@ if [ "$#" -eq 2 ]; then
   -u | --uninstall)
     case "$PKG" in
     abook)
-      UNINSTALL abook
+      UNINSTALL abookrc
       ;;
     bread)
       UNINSTALL bread
@@ -284,7 +284,7 @@ if [ "$#" -eq 2 ]; then
       UNINSTALL zsh
       ;;
     all)
-      UNINSTALL abook
+      UNINSTALL abookrc
       UNINSTALL alacritty
       UNINSTALL awesome
       UNINSTALL bread
