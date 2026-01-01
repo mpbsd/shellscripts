@@ -41,18 +41,16 @@ TGT='/dev/sdb'
 [[ -f "$SHA"         ]] || wget "${URL}/$SHA" -O "${DIR}/${SHA}" || exit 14
 [[ -f "$PUB"         ]] || wget "${GHR}/$PUB" -O "${DIR}/${PUB}" || exit 15
 
-echo 'Verifying the signature:'
+printf '\nVerifying the signature:\n\n'
 minisign -V -p "$PUB" -x sha256sum.sig -m sha256sum.txt
 
-echo 'Verifying the integrity:'
+printf '\nVerifying the integrity:\n\n'
 sha256sum -c --ignore-missing sha256sum.txt
 
 echo -n 'Do you want to create an installation media for voidlinux? '
 echo -n "All data on the target USB device $TGT will be destroyed. "
 echo -n '(y/N) '
 read -r ANSWER
-
-echo "$ANSWER"
 
 if [[ "$ANSWER" = 'y' ]]; then
   sudo dd if="$ISO" of="$TGT" bs=16M status=progress oflag=sync
