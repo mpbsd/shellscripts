@@ -240,6 +240,8 @@ declare -a SUCKLESS=(
   libxinerama-dev:amd64
   libharfbuzz-dev:amd64
   libxrandr-dev:amd64
+  libgcr-3-dev:amd64
+  libwebkit2gtk-4.1-dev:amd64
 )
 # }}}
 # NEOVIM {{{
