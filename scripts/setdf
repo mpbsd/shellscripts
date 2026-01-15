@@ -29,6 +29,7 @@ function SOURCE() {  # {{{
   declare -A ORIG
 
   ORIG[abookrc]="$SRC1"
+  ORIG[bibliography]="$SRC1"
   ORIG[bread]="$SRC1"
   ORIG[git]="$SRC1"
   ORIG[irssi]="$SRC1"
@@ -45,6 +46,7 @@ function SOURCE() {  # {{{
   ORIG[newsboat]="$SRC2"
   ORIG[nvim]="$SRC2"
   ORIG[opencode]="$SRC1"
+  ORIG[sqlite3]="$SRC2"
   ORIG[tmux]="$SRC2"
   ORIG[vifm]="$SRC2"
   ORIG[vim]="$SRC2"
@@ -59,6 +61,7 @@ function TARGET() {  # {{{
   declare -A DEST
 
   DEST[abookrc]='.config/abook'
+  DEST[bibliography]='.local/share/bibliography'
   DEST[bread]='.local/share/bookmarks'
   DEST[git]='.config/git'
   DEST[irssi]='.config/irssi'
@@ -75,6 +78,7 @@ function TARGET() {  # {{{
   DEST[newsboat]='.config/newsboat'
   DEST[nvim]='.config/nvim'
   DEST[opencode]='.config/opencode'
+  DEST[sqlite3]='.config/sqlite3'
   DEST[tmux]='.config/tmux'
   DEST[vifm]='.config/vifm'
   DEST[vim]='.config/vim'
@@ -123,6 +127,7 @@ function AVAILABLE_DOTFILES() {
   \t- newsboat
   \t- nvim
   \t- opencode
+  \t- sqlite3
   \t- tmux
   \t- vifm
   \t- vim
@@ -144,6 +149,9 @@ if [ "$#" -eq 2 ]; then
     abook)
       INSTALL abookrc
       ;;
+    bibliography)
+      INSTALL bibliography
+      ;;
     bread)
       INSTALL bread
       ;;
@@ -186,6 +194,9 @@ if [ "$#" -eq 2 ]; then
       ;;
     opencode)
       INSTALL opencode
+      ;;
+    sqlite3)
+      INSTALL sqlite3
       ;;
     tmux)
       INSTALL tmux
@@ -204,6 +215,7 @@ if [ "$#" -eq 2 ]; then
       ;;
     all)
       INSTALL abookrc
+      INSTALL bibliography
       INSTALL alacritty
       INSTALL awesome
       INSTALL bread
@@ -219,6 +231,7 @@ if [ "$#" -eq 2 ]; then
       INSTALL newsboat
       INSTALL nvim
       INSTALL opencode
+      INSTALL sqlite3
       INSTALL tmux
       INSTALL vifm
       INSTALL vim
@@ -234,6 +247,9 @@ if [ "$#" -eq 2 ]; then
     case "$PKG" in
     abook)
       UNINSTALL abookrc
+      ;;
+    bibliography)
+      UNINSTALL bibliography
       ;;
     bread)
       UNINSTALL bread
@@ -278,6 +294,9 @@ if [ "$#" -eq 2 ]; then
     opencode)
       UNINSTALL opencode
       ;;
+    sqlite3)
+      UNINSTALL sqlite3
+      ;;
     tmux)
       UNINSTALL tmux
       ;;
@@ -295,6 +314,7 @@ if [ "$#" -eq 2 ]; then
       ;;
     all)
       UNINSTALL abookrc
+      UNINSTALL bibliography
       UNINSTALL alacritty
       UNINSTALL awesome
       UNINSTALL bread
@@ -310,6 +330,7 @@ if [ "$#" -eq 2 ]; then
       UNINSTALL newsboat
       UNINSTALL nvim
       UNINSTALL opencode
+      UNINSTALL sqlite3
       UNINSTALL tmux
       UNINSTALL vifm
       UNINSTALL vim
