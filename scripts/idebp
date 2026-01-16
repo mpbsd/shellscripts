@@ -176,6 +176,7 @@ declare -a CLI_UTILS=(
   sc-im
   scrot
   sdcv
+  shellcheck
   stow
   tmux
   xdotool
@@ -241,7 +242,7 @@ declare -a SUCKLESS=(
   libharfbuzz-dev:amd64
   libxrandr-dev:amd64
   libgcr-3-dev:amd64
-  libwebkit2gtk-4.1-dev:amd64
+  libwebkit2gtk-4.1-dev
 )
 # }}}
 # NEOVIM {{{
